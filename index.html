@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artium Academy — Offline Centres</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F4F0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+.page{display:none;min-height:100vh;flex-direction:column}.page.active{display:flex}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#FFFFFF;border-bottom:0.5px solid #E2E0D8;position:sticky;top:0;z-index:10}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.back-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;border:0.5px solid #CCCAC0;background:#F8F7F3;cursor:pointer;font-size:12px;font-weight:500;color:#5F5E5A;transition:all .2s;text-decoration:none}.back-btn:hover{background:#E2E0D8;color:#1A1A18}
+.fn-badge{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:#1A1A18}
+.fn-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.topbar-title{font-size:11px;color:#9B9A94;letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+.p1-body{padding:24px 20px 48px;flex:1}
+.p1-intro{font-size:13px;color:#9B9A94;margin-bottom:18px}
+.fn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:720px}
+.fn-card{position:relative;padding:18px 16px 15px;cursor:pointer;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s;background:#FFFFFF;border:0.5px solid #E2E0D8;border-radius:16px}
+.fn-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.09);border-color:#CCCAC0}
+.fn-stripe{position:absolute;top:0;left:0;right:0;height:4px;border-radius:16px 16px 0 0}
+.fn-emoji{font-size:26px;margin-bottom:9px;display:block;transition:transform .3s}.fn-card:hover .fn-emoji{transform:scale(1.14) rotate(-4deg)}
+.fn-name{font-size:13px;font-weight:500;color:#1A1A18;line-height:1.35;margin-bottom:12px}
+.fn-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fn-pct-wrap{flex:1;display:flex;flex-direction:column;gap:4px}
+.fn-bar-bg{height:3px;border-radius:3px;background:#E2E0D8;overflow:hidden}
+.fn-bar-fill{height:3px;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.fn-pct-row{display:flex;align-items:center;justify-content:space-between}
+.fn-pct-txt{font-size:11px;font-weight:600}
+.fn-sub-count{font-size:10px;color:#9B9A94}
+.fn-arrow{font-size:16px;color:#CCCAC0;transition:transform .2s,color .2s}.fn-card:hover .fn-arrow{transform:translateX(3px);color:#9B9A94}
+.p2-body{padding:20px 20px 48px;flex:1;max-width:740px}
+.p2-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:15px 18px 15px 22px;background:#FFFFFF;border:0.5px solid #E2E0D8;border-radius:16px;position:relative;overflow:hidden}
+.p2-stripe{position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:16px 0 0 16px}
+.p2-emoji{font-size:28px}.p2-info{flex:1}
+.p2-name{font-size:16px;font-weight:500;color:#1A1A18;margin-bottom:3px}
+.p2-meta{font-size:12px;color:#9B9A94}
+.p2-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;flex-shrink:0}
+.sub-card{background:#FFFFFF;border:0.5px solid #E2E0D8;border-radius:12px;margin-bottom:8px;overflow:hidden;transition:border-color .2s,box-shadow .2s;position:relative}
+.sub-card:hover{border-color:#CCCAC0;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.sub-lbar{position:absolute;left:0;top:0;bottom:0;width:3px;opacity:0;transition:opacity .2s}.sub-card:hover .sub-lbar,.sub-card.open .sub-lbar{opacity:1}
+.sub-head{display:flex;align-items:center;gap:10px;padding:11px 13px;cursor:pointer;user-select:none}.sub-head:hover{background:#F8F7F3}
+.sub-ew{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:transform .2s}.sub-card:hover .sub-ew{transform:scale(1.08)}
+.sub-info{flex:1;min-width:0}
+.sub-name{font-size:12.5px;font-weight:500;color:#1A1A18;margin-bottom:4px}
+.sub-meta{display:flex;align-items:center;gap:8px}
+.sub-bar-bg{width:70px;height:2.5px;border-radius:3px;background:#E2E0D8;overflow:hidden;flex-shrink:0}
+.sub-bar-fill{height:2.5px;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.sub-pct{font-size:10px;color:#5F5E5A;font-weight:500}
+.sub-cnt{font-size:9.5px;color:#9B9A94;margin-left:auto}
+.sub-chev{font-size:14px;color:#9B9A94;transition:transform .25s;flex-shrink:0}.sub-card.open .sub-chev{transform:rotate(180deg)}
+.sub-kids{display:none;padding:0 11px 11px}.sub-card.open .sub-kids{display:block}
+.ss-card{background:#F8F7F3;border:0.5px solid #E2E0D8;border-radius:9px;margin-bottom:6px;overflow:hidden;cursor:pointer;transition:all .2s}.ss-card:last-child{margin-bottom:0}.ss-card:hover{border-color:#CCCAC0;background:#FFFFFF}
+.ss-head{display:flex;align-items:center;gap:8px;padding:9px 11px}
+.ss-em{font-size:13px;flex-shrink:0}.ss-nm{font-size:11.5px;font-weight:500;color:#1A1A18;flex:1}
+.ss-bar-bg{width:44px;height:2px;border-radius:2px;background:#E2E0D8;overflow:hidden;flex-shrink:0}
+.ss-bar-fill{height:2px;border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.ss-pct{font-size:9.5px;color:#5F5E5A;font-weight:500;min-width:26px;text-align:right}
+.ss-cnt{font-size:8.5px;color:#9B9A94;margin-left:4px}
+/* Panel */
+.panel-wrap{position:fixed;inset:0;z-index:200;pointer-events:none}
+.panel-wrap.open{pointer-events:all}
+.panel-scrim{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .3s}.panel-wrap.open .panel-scrim{background:rgba(0,0,0,0.2)}
+.panel{position:absolute;top:0;right:0;bottom:0;width:380px;background:#FFFFFF;border-left:0.5px solid #E2E0D8;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}.panel-wrap.open .panel{transform:translateX(0)}
+.panel-hdr{padding:18px 18px 14px;border-bottom:0.5px solid #E2E0D8;position:relative;flex-shrink:0}
+.panel-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:20px;font-size:10px;font-weight:500;margin-bottom:8px;border:0.5px solid #E2E0D8}
+.panel-ttl{font-size:16px;font-weight:500;color:#1A1A18;margin-bottom:10px;line-height:1.3}
+.panel-prog-row{display:flex;align-items:center;gap:9px}
+.panel-prog-bg{flex:1;height:4px;border-radius:4px;background:#E2E0D8;overflow:hidden}
+.panel-prog-fill{height:4px;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.panel-prog-lbl{font-size:11px;font-weight:600;color:#5F5E5A;min-width:34px;text-align:right}
+.panel-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;border:0.5px solid #CCCAC0;background:#F8F7F3;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#5F5E5A;font-size:13px;transition:all .2s}.panel-close:hover{background:#E2E0D8}
+.panel-legend{display:flex;align-items:center;gap:10px;padding:8px 18px;border-bottom:0.5px solid #E2E0D8;flex-wrap:wrap}
+.leg-lbl{font-size:9.5px;color:#9B9A94;font-weight:500}
+.leg-chip{display:flex;align-items:center;gap:4px;font-size:9.5px;color:#5F5E5A}
+.leg-sw{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.panel-body{flex:1;overflow-y:auto;padding:12px 18px 18px}
+.panel-empty{text-align:center;padding:36px 14px;color:#9B9A94;font-size:12.5px;line-height:1.7}
+.panel-empty .ep-icon{font-size:28px;display:block;margin-bottom:8px;opacity:.35}
+/* Initiative cards */
+.ic{border-radius:10px;margin-bottom:8px;overflow:hidden;cursor:pointer;position:relative;transition:box-shadow .2s}
+.ic:last-child{margin-bottom:0}
+.ic:hover{box-shadow:0 2px 10px rgba(0,0,0,0.07)}
+.ic.t-r{background:#FFF1EF;border:0.5px solid #ECC8C3}
+.ic.t-a{background:#FFFAEE;border:0.5px solid #EDD98A}
+.ic.t-g{background:#EEFBF4;border:0.5px solid #A8DFC0}
+.ic-top{padding:11px 11px 9px}
+.ic-row{display:flex;align-items:flex-start;gap:6px;margin-bottom:7px}
+.ic-name{font-size:12.5px;font-weight:500;color:#1A1A18;line-height:1.4;flex:1}
+.ic-pill{font-size:9px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.ic-bar-bg{height:2.5px;border-radius:3px;background:rgba(0,0,0,0.09);overflow:hidden}
+.ic-bar-fill{height:2.5px;border-radius:3px}
+.ic-chev{position:absolute;right:10px;top:10px;font-size:12px;color:#9B9A94;transition:transform .22s}.ic.open .ic-chev{transform:rotate(180deg)}
+.ic-det{display:none;padding:8px 11px 12px;border-top:0.5px solid rgba(0,0,0,0.06)}.ic.open .ic-det{display:block}
+.ic.t-r .ic-det{background:rgba(255,218,212,0.38)}
+.ic.t-a .ic-det{background:rgba(255,238,196,0.38)}
+.ic.t-g .ic-det{background:rgba(205,244,220,0.38)}
+.det-sec{margin-bottom:8px}.det-sec:last-child{margin-bottom:0}
+.det-lbl{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#9B9A94;margin-bottom:5px}
+.det-item{display:flex;gap:7px;align-items:flex-start;margin-bottom:4px}.det-item:last-child{margin-bottom:0}
+.det-dot{width:4px;height:4px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.det-txt{font-size:11.5px;color:#5F5E5A;line-height:1.55}
+.cb{display:flex;align-items:center;gap:5px;padding:5px 11px;background:rgba(29,158,117,0.1);border-top:0.5px solid rgba(29,158,117,0.22);font-size:10.5px;font-weight:500;color:#085041}
+/* Dependency symbols */
+.dep{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;cursor:pointer;flex-shrink:0;margin-top:2px;transition:transform .2s}.dep:hover{transform:scale(1.22)}
+.dep.mo{background:rgba(186,117,23,0.14);border:0.5px solid rgba(186,117,23,0.4)}.dep.mo i{font-size:10px;color:#BA7517}
+.dep.ch{background:rgba(55,138,221,0.11);border:0.5px solid rgba(55,138,221,0.35)}.dep.ch i{font-size:10px;color:#378ADD}
+/* Tooltip */
+.tt{position:fixed;z-index:999;background:#1A1A18;color:#F5F4F0;font-size:10.5px;font-weight:500;padding:6px 10px;border-radius:8px;pointer-events:none;opacity:0;transition:opacity .15s;max-width:250px;white-space:normal;line-height:1.45;box-shadow:0 4px 14px rgba(0,0,0,0.16)}.tt.on{opacity:1}
+.tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#1A1A18}
+</style>
+</head>
+<body>
+<div class="tt" id="tt"></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <div class="topbar">
+    <span class="topbar-title">Artium Academy — offline centres</span>
+  </div>
+  <div class="p1-body">
+    <p class="p1-intro">Click a function to explore its sub-functions and initiatives.</p>
+    <div class="fn-grid" id="fg"></div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goHome()"><i class="ti ti-arrow-left"></i> All functions</button>
+      <div class="fn-badge" id="p2b"></div>
+    </div>
+  </div>
+  <div class="p2-body" id="p2bd"></div>
+</div>
+
+<!-- SIDE PANEL -->
+<div class="panel-wrap" id="pw">
+  <div class="panel-scrim" onclick="closePanel()"></div>
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-chip" id="pc"></div>
+      <div class="panel-ttl" id="pt"></div>
+      <div class="panel-prog-row">
+        <div class="panel-prog-bg"><div class="panel-prog-fill" id="ppf"></div></div>
+        <div class="panel-prog-lbl" id="ppl"></div>
+      </div>
+      <button class="panel-close" onclick="closePanel()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="panel-legend">
+      <span class="leg-lbl">Progress bands:</span>
+      <div class="leg-chip"><div class="leg-sw" style="background:#E24B4A"></div>0–40%</div>
+      <div class="leg-chip"><div class="leg-sw" style="background:#FAC775"></div>41–70%</div>
+      <div class="leg-chip"><div class="leg-sw" style="background:#1D9E75"></div>71–100%</div>
+    </div>
+    <div class="panel-body" id="pb"></div>
+  </div>
+</div>
+
+<script>
+const C={
+  teal:  {s:"#1D9E75",bg:"rgba(29,158,117,0.08)",t:"#085041"},
+  purple:{s:"#7F77DD",bg:"rgba(127,119,221,0.08)",t:"#3C3489"},
+  coral: {s:"#D85A30",bg:"rgba(216,90,48,0.08)", t:"#712B13"},
+  amber: {s:"#BA7517",bg:"rgba(186,117,23,0.08)",t:"#633806"},
+  blue:  {s:"#378ADD",bg:"rgba(55,138,221,0.08)",t:"#0C447C"},
+  pink:  {s:"#D4537E",bg:"rgba(212,83,126,0.08)",t:"#72243E"},
+};
+const bC = p => p <= 40 ? "#E24B4A" : p <= 70 ? "#FAC775" : "#1D9E75";
+const pS = p => p===100 ? {bg:"rgba(29,158,117,0.15)",c:"#085041"} : p>0 ? {bg:"rgba(186,117,23,0.15)",c:"#633806"} : {bg:"rgba(0,0,0,0.07)",c:"#5F5E5A"};
+const pT = p => p===100 ? "Complete" : p>0 ? p+"%" : "Not started";
+const tC = p => p<=40 ? "t-r" : p<=70 ? "t-a" : "t-g";
+const avg = a => a.length ? Math.round(a.reduce((s,x)=>s+x.pct,0)/a.length) : 0;
+const avgS = subs => { const v=subs.map(s=>s.kids?avgS(s.kids):s.i&&s.i.length?avg(s.i):0); return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):0; };
+
+const DEPS = {
+  "blh": {fi:0, sp:"0",   lbl:"Batch operations → Leave / Holiday intimation"},
+  "clh": {fi:3, sp:"3-2", lbl:"Communication → Leave / Holiday intimations"},
+};
+
+const D = [
+  {n:"Operations", c:"teal", e:"⚙️", s:[
+    {n:"Batch operations", e:"📅", i:[
+      {n:"Calendar view of all batches", pct:85,
+       d:["Full calendar view across all teachers","Filtered views by teacher, course, and age group","Click into batch — view, add or remove students","Create and delete batches","Transfer students one-by-one between batches and teachers"],
+       x:["Bulk transfer of students — critical for teacher resignation scenarios"]},
+      {n:"Onboarding form for new joinees", pct:15,
+       d:["Form fields and questions designed and finalised"],
+       x:["Yet to be picked up by product team","Build form and link sharing / tablet handoff flow","Map submitted data to student backend profile","Make profile accessible to centre head, counsellor, teachers, and student"]},
+      {n:"Leave intimation / Skip class", pct:0, d:[],
+       x:["Yet to be proposed","Build skip class option in Artium app — up to 1 hour before class","Trigger automatic notifications to teacher and admin on skip"]},
+      {n:"Attendance tracking", pct:20,
+       d:["Attendance marking feature built on teacher's Android tablet","Batch-wise marking flow in place"],
+       x:["Attendance does not yet reflect on backend","Admin and teacher views yet to be built","No data visibility — not in usable state","Notifications, guest student flow, 24hr window, challenge flow, membership deduction all pending"]},
+      {n:"Leave / Holiday intimation", pct:0, d:[],
+       x:["Yet to be discussed with product team","Centre head logs teacher leave or centre-wide holiday","Centre-wide → notify admin, all teachers, all learners","Teacher leave → notify admin and that teacher's learners","Select exact dates for leave and resumption","Partial unavailability → notify only affected batches","Standard editable message templates"],
+       rb:["clh"]},
+    ]},
+    {n:"Teacher operations", e:"👩‍🏫", i:[
+      {n:"Teacher's handbook", pct:50,
+       d:["Dress code policy — drafted","Trial class policy — drafted","Leave requests and approvals — drafted","Student transfer protocol — drafted","Social media and content creation policy — drafted","Working hours and break policy — drafted","Before & after video — drafted","Zero Tolerance policy — drafted"],
+       x:["Leave penalties not yet implemented in payout system — no consequence for non-compliance","Handbook not yet shared with L&D team — not part of training process","Language and tonality yet to be unified across all documents"]},
+    ]},
+    {n:"Sales operations", e:"💰", i:[]},
+    {n:"Admin operations", e:"📋", i:[]},
+  ]},
+  {n:"Academics", c:"purple", e:"🎓", s:[
+    {n:"Academic strategy", e:"🗺️", i:[]},
+    {n:"Academic operations", e:"📚", i:[]},
+    {n:"Examinations & certifications", e:"🏅", i:[]},
+  ]},
+  {n:"Marketing", c:"coral", e:"📣", s:[
+    {n:"Digital marketing", e:"📱", i:[]},
+    {n:"BTL marketing", e:"🎪", i:[]},
+  ]},
+  {n:"Learner experience", c:"amber", e:"🎵", s:[
+    {n:"Performance opportunities", e:"🎤", ex:true, kids:[
+      {n:"Artium Superstar", e:"⭐", i:[
+        {n:"Auditions", pct:100,
+         d:["Offline learners can submit audition clips for Artium Superstar — same opportunity as online learners","Feature fully built and live"],
+         x:[]},
+      ]},
+      {n:"Talent Development Programme (TDP)", e:"🌱", i:[
+        {n:"Scouting", pct:20,
+         d:["Eligible offline learners currently identified through Chennai online showcase","Jaydeep is part of the TDP team and informally identifies learners"],
+         x:["Enable offline teachers to understand TDP eligibility criteria","Build structured pipeline for teacher-led identification and recommendation of prodigy-level learners","TDP team to then audition recommended learners"]},
+      ]},
+      {n:"Teacher Community Showcase", e:"🎭", i:[
+        {n:"Preparation", pct:15,
+         d:["Learners dress appropriately for stage performance"],
+         x:["Not all teachers have stage performance experience — coverage is not universal","Conceptual understanding of performance varies across teachers — each has their own tailored experience","No commonly built Artium-level stage performance guidance course exists yet","Teachers not yet uniformly preparing learners with song selection and periodic check-ins"]},
+        {n:"Performance & feedback", pct:25,
+         d:["Performances piloted at both Alwarpet and Thoraipakkam centres"],
+         x:["Parents prefer performances outside the academy premises — external venue creates better atmosphere and is perceived as more valuable","No structured feedback mechanism in place yet","Continuous improvement loop yet to be established"]},
+      ]},
+    ]},
+    {n:"In-class experience", e:"🎼", i:[]},
+    {n:"Out-class experience", e:"🌟", i:[]},
+    {n:"User Interface", e:"🖥️", ex:true, kids:[
+      {n:"Academic Interface", e:"🎓", i:[
+        {n:"Curriculum view", pct:100,
+         d:["Learners can view the full curriculum for their course and level","Notes and resources accessible for completed topics and the upcoming class"],
+         x:[]},
+        {n:"Topic-wise checklist", pct:10,
+         d:["Feature is available in the online world"],
+         x:["Yet to be discussed and picked up for the offline world","Build topic list view per course level","Teacher marks topics as complete — visible to learner","Learner can challenge incorrectly marked topics","Learner can assign understanding % via slider or open input","Learner can add a note on concepts needing clarity"]},
+      ]},
+      {n:"Membership Details", e:"🎟️", i:[
+        {n:"Transaction details", pct:0, d:[],
+         x:["Yet to be proposed or picked up","Build learner-facing transaction history","Tag each transaction as new admission or renewal","Show transaction date, classes purchased, course name, course level, and amount paid"]},
+        {n:"Membership benefits", pct:0, d:[],
+         x:["Yet to be proposed or picked up","Build learner-facing membership details view","Show membership duration, start date, expiry date, and number of compensation classes available"]},
+        {n:"Artium's offerings", pct:0, d:[],
+         x:["Yet to be proposed or picked up","Single view for all offerings available under the membership","Include: Artium Superstar, Artium Showcase, Teacher Community Showcase, PTM, Certification Exams"]},
+        {n:"Class history", pct:15,
+         d:["Detailed PRD prepared on Excel by Omkar and Shashwat","Discussed with Swati on one or two occasions — kept for a future phase"],
+         x:["Yet to be picked up by product team","Build class status view — attended, cancelled by institute, missed by learner, compensated","Show exact date, time, and teacher name per class","If a permanent teacher change occurred, group classes separately under each teacher's umbrella"]},
+      ]},
+      {n:"Communication", e:"💬", i:[
+        {n:"Chat with teacher", pct:100,
+         d:["Chat option fully built and live","Text and voice messages supported","File uploads supported — including audio for homework submissions and performance feedback","Both teacher and learner receive notifications on new messages"],
+         x:[]},
+        {n:"Chat with centre head", pct:0, d:[],
+         x:["Yet to be discussed with the product team","Build chat option with centre head for questions, doubts, and general communication","Text, voice messages, and file uploads including audio","Notifications to both centre head and learner on new messages"]},
+        {n:"Raise a ticket", pct:0, d:[],
+         x:["Yet to be discussed with the product team","Build ticket raising flow — learner describes their issue in detail","Route ticket directly to city supervisor with immediate notification","Simultaneously send email covering full issue to centre head and city supervisor"]},
+        {n:"Leave / Holiday intimations", pct:0, d:[],
+         x:["Yet to be discussed with the product team","Learners receive notifications on the Artium app for teacher leaves and centre-wide holidays","Include exact dates and timings of the leave or holiday","Include resumption date and timing"],
+         do:["blh"]},
+      ]},
+    ]},
+  ]},
+  {n:"Product & tech", c:"blue", e:"💻", s:[
+    {n:"Internal features & tools", e:"🔧", i:[]},
+    {n:"Learner-facing features & tools", e:"📲", i:[]},
+  ]},
+  {n:"Social media, design & content", c:"pink", e:"✨", s:[
+    {n:"Social media strategy", e:"📸", i:[]},
+    {n:"Content strategy", e:"✍️", i:[]},
+    {n:"Design strategy", e:"🎨", i:[]},
+  ]},
+];
+
+// Tooltip
+const ttEl = document.getElementById("tt");
+let ttT;
+function showTT(el, txt) {
+  clearTimeout(ttT);
+  ttEl.textContent = txt;
+  ttEl.classList.add("on");
+  requestAnimationFrame(() => {
+    const r = el.getBoundingClientRect(), tw = ttEl.offsetWidth, th = ttEl.offsetHeight;
+    let l = r.left + r.width/2 - tw/2;
+    l = Math.max(6, Math.min(l, window.innerWidth - tw - 6));
+    ttEl.style.left = l + "px";
+    ttEl.style.top = (r.top - 8 - th) + "px";
+  });
+}
+function hideTT() { ttT = setTimeout(() => ttEl.classList.remove("on"), 110); }
+
+// Build Page 1
+function buildP1() {
+  const g = document.getElementById("fg"); g.innerHTML = "";
+  D.forEach((fn, fi) => {
+    const c = C[fn.c], fa = avgS(fn.s);
+    const card = document.createElement("div"); card.className = "fn-card";
+    card.innerHTML = `
+      <div class="fn-stripe" style="background:${c.s}"></div>
+      <span class="fn-emoji">${fn.e}</span>
+      <div class="fn-name">${fn.n}</div>
+      <div class="fn-foot">
+        <div class="fn-pct-wrap">
+          <div class="fn-pct-row">
+            <span class="fn-pct-txt" style="color:${c.s}">${pT(fa)}</span>
+            <span class="fn-sub-count">${fn.s.length} areas</span>
+          </div>
+          <div class="fn-bar-bg"><div class="fn-bar-fill" data-v="${fa}" style="background:${bC(fa)}"></div></div>
+        </div>
+        <i class="ti ti-arrow-right fn-arrow"></i>
+      </div>`;
+    card.addEventListener("click", () => goFn(fi));
+    g.appendChild(card);
+  });
+  setTimeout(() => document.querySelectorAll(".fn-bar-fill").forEach(el => el.style.width = el.dataset.v + "%"), 160);
+}
+
+// Go to function page
+function goFn(fi) {
+  const fn = D[fi], c = C[fn.c], fa = avgS(fn.s), ps = pS(fa);
+  document.getElementById("p2b").innerHTML = `<div class="fn-dot" style="background:${c.s}"></div><span>${fn.e} ${fn.n}</span>`;
+  const bd = document.getElementById("p2bd"); bd.innerHTML = "";
+  const hdr = document.createElement("div"); hdr.className = "p2-hdr";
+  hdr.innerHTML = `
+    <div class="p2-stripe" style="background:${c.s}"></div>
+    <span class="p2-emoji">${fn.e}</span>
+    <div class="p2-info"><div class="p2-name">${fn.n}</div><div class="p2-meta">${fn.s.length} sub-functions</div></div>
+    <span class="p2-pill" style="background:${ps.bg};color:${ps.c}">${pT(fa)}</span>`;
+  bd.appendChild(hdr);
+  fn.s.forEach((sub, si) => {
+    if (sub.ex && sub.kids) renderExp(bd, fn, sub, fi, si, c);
+    else renderSub(bd, fn, sub, c);
+  });
+  setTimeout(() => bd.querySelectorAll(".sub-bar-fill,.ss-bar-fill").forEach(el => el.style.width = el.dataset.v + "%"), 160);
+  document.getElementById("p1").classList.remove("active");
+  document.getElementById("p2").classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function renderSub(bd, fn, sub, c) {
+  const sp = sub.i && sub.i.length ? avg(sub.i) : 0;
+  const card = document.createElement("div"); card.className = "sub-card";
+  const lb = document.createElement("div"); lb.className = "sub-lbar"; lb.style.background = c.s; card.appendChild(lb);
+  card.innerHTML += `
+    <div class="sub-head">
+      <div class="sub-ew" style="background:${c.bg}">${sub.e}</div>
+      <div class="sub-info">
+        <div class="sub-name">${sub.n}</div>
+        <div class="sub-meta">
+          <div class="sub-bar-bg"><div class="sub-bar-fill" data-v="${sp}" style="background:${bC(sp)}"></div></div>
+          <span class="sub-pct">${sp}%</span>
+          <span class="sub-cnt">${sub.i && sub.i.length ? sub.i.length + " initiative" + (sub.i.length > 1 ? "s" : "") : "No initiatives yet"}</span>
+        </div>
+      </div>
+      <i class="ti ti-chevron-right sub-chev" style="transform:none"></i>
+    </div>`;
+  card.querySelector(".sub-head").addEventListener("click", () => openPanel(fn, sub, c));
+  bd.appendChild(card);
+}
+
+function renderExp(bd, fn, sub, fi, si, c) {
+  const sp = avgS(sub.kids);
+  const card = document.createElement("div"); card.className = "sub-card";
+  const lb = document.createElement("div"); lb.className = "sub-lbar"; lb.style.background = c.s; card.appendChild(lb);
+  const kH = sub.kids.map((k, ki) => {
+    const kp = k.i && k.i.length ? avg(k.i) : 0;
+    return `<div class="ss-card" id="ss-${fi}-${si}-${ki}">
+      <div class="ss-head">
+        <span class="ss-em">${k.e}</span>
+        <span class="ss-nm">${k.n}</span>
+        <div class="ss-bar-bg"><div class="ss-bar-fill" data-v="${kp}" style="background:${bC(kp)}"></div></div>
+        <span class="ss-pct">${kp}%</span>
+        <span class="ss-cnt">${k.i && k.i.length ? k.i.length + "i" : ""}</span>
+      </div>
+    </div>`;
+  }).join("");
+  card.innerHTML += `
+    <div class="sub-head" style="cursor:pointer">
+      <div class="sub-ew" style="background:${c.bg}">${sub.e}</div>
+      <div class="sub-info">
+        <div class="sub-name">${sub.n}</div>
+        <div class="sub-meta">
+          <div class="sub-bar-bg"><div class="sub-bar-fill" data-v="${sp}" style="background:${bC(sp)}"></div></div>
+          <span class="sub-pct">${sp}%</span>
+          <span class="sub-cnt">${sub.kids.length} sub-sections</span>
+        </div>
+      </div>
+      <i class="ti ti-chevron-down sub-chev"></i>
+    </div>
+    <div class="sub-kids">${kH}</div>`;
+  card.querySelector(".sub-head").addEventListener("click", () => {
+    const o = card.classList.contains("open");
+    card.classList.toggle("open", !o);
+    if (!o) setTimeout(() => card.querySelectorAll(".ss-bar-fill").forEach(el => el.style.width = el.dataset.v + "%"), 45);
+  });
+  sub.kids.forEach((k, ki) => {
+    setTimeout(() => {
+      const el = card.querySelector(`#ss-${fi}-${si}-${ki}`);
+      if (el) el.addEventListener("click", () => openPanel(fn, k, c));
+    }, 0);
+  });
+  bd.appendChild(card);
+}
+
+function goHome() {
+  closePanel();
+  document.getElementById("p2").classList.remove("active");
+  document.getElementById("p1").classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function navDep(id) {
+  closePanel();
+  const dep = DEPS[id]; if (!dep) return;
+  const fn = D[dep.fi], c = C[fn.c];
+  goFn(dep.fi);
+  setTimeout(() => {
+    const parts = dep.sp.split("-");
+    if (parts.length === 1) {
+      openPanel(fn, fn.s[+parts[0]], c);
+    } else {
+      const ks = fn.s[+parts[0]].kids[+parts[1]];
+      const cards = document.querySelectorAll("#p2bd .sub-card");
+      const ec = cards[+parts[0] + 1];
+      if (ec && !ec.classList.contains("open")) {
+        ec.querySelector(".sub-head").click();
+        setTimeout(() => openPanel(fn, ks, c), 300);
+      } else openPanel(fn, ks, c);
+    }
+  }, 420);
+}
+
+function mkDep(type, id, txt) {
+  const el = document.createElement("div"); el.className = `dep ${type}`;
+  el.innerHTML = type === "mo" ? `<i class="ti ti-crown"></i>` : `<i class="ti ti-git-branch"></i>`;
+  el.addEventListener("mouseenter", () => showTT(el, txt));
+  el.addEventListener("mouseleave", hideTT);
+  el.addEventListener("click", e => { e.stopPropagation(); navDep(id); });
+  return el;
+}
+
+function openPanel(fn, sub, c) {
+  const sp = sub.i && sub.i.length ? avg(sub.i) : 0;
+  const pc = document.getElementById("pc");
+  pc.innerHTML = `<span style="width:7px;height:7px;border-radius:50%;background:${c.s};display:inline-block;flex-shrink:0"></span><span style="color:${c.t};font-weight:500;margin-left:4px">${fn.e} ${fn.n}</span>`;
+  pc.style.cssText = `border-color:${c.s}45;background:${c.bg}`;
+  document.getElementById("pt").textContent = sub.e + " " + sub.n;
+  const pf = document.getElementById("ppf");
+  pf.style.width = "0"; pf.style.background = bC(sp);
+  setTimeout(() => pf.style.width = sp + "%", 70);
+  document.getElementById("ppl").textContent = pT(sp);
+  const pb = document.getElementById("pb");
+  if (!sub.i || !sub.i.length) {
+    pb.innerHTML = `<div class="panel-empty"><i class="ti ti-clipboard-list ep-icon"></i>No initiatives logged yet.<br>Keep briefing to fill this in.</div>`;
+    document.getElementById("pw").classList.add("open"); return;
+  }
+  pb.innerHTML = "";
+  sub.i.forEach((init, ii) => {
+    const ps = pS(init.pct), isC = init.pct === 100;
+    const card = document.createElement("div");
+    card.className = `ic ${tC(init.pct)}`; card.style.position = "relative";
+    const top = document.createElement("div"); top.className = "ic-top";
+    const row = document.createElement("div"); row.className = "ic-row";
+    const nm = document.createElement("div"); nm.className = "ic-name"; nm.textContent = init.n; row.appendChild(nm);
+    if (init.rb && init.rb.length) init.rb.forEach(id => { const dep = DEPS[id]; row.appendChild(mkDep("mo", id, `Mother task — required by: ${dep ? dep.lbl : id}`)); });
+    if (init.do && init.do.length) init.do.forEach(id => { const dep = DEPS[id]; row.appendChild(mkDep("ch", id, `Child task — depends on: ${dep ? dep.lbl : id}`)); });
+    const pill = document.createElement("div"); pill.className = "ic-pill";
+    pill.style.cssText = `background:${ps.bg};color:${ps.c}`; pill.textContent = pT(init.pct); row.appendChild(pill);
+    top.appendChild(row);
+    const bb = document.createElement("div"); bb.className = "ic-bar-bg";
+    const bf = document.createElement("div"); bf.className = "ic-bar-fill";
+    bf.style.cssText = `width:${init.pct}%;background:${bC(init.pct)}`; bb.appendChild(bf); top.appendChild(bb);
+    card.appendChild(top);
+    if (isC) { const cb = document.createElement("div"); cb.className = "cb"; cb.innerHTML = `<i class="ti ti-circle-check"></i> Complete`; card.appendChild(cb); }
+    const det = document.createElement("div"); det.className = "ic-det";
+    const dH = init.d && init.d.length ? `<div class="det-sec"><div class="det-lbl">✅ What's been done</div>${init.d.map(d => `<div class="det-item"><div class="det-dot" style="background:#1D9E75"></div><div class="det-txt">${d}</div></div>`).join("")}</div>` : "";
+    const pH = init.x && init.x.length ? `<div class="det-sec"><div class="det-lbl">🔲 What's pending</div>${init.x.map(p => `<div class="det-item"><div class="det-dot" style="background:#FAC775"></div><div class="det-txt">${p}</div></div>`).join("")}</div>` : "";
+    det.innerHTML = dH + (pH || (!isC ? '<div class="det-sec"><div class="det-lbl">Nothing pending</div></div>' : ""));
+    card.appendChild(det);
+    const chev = document.createElement("i"); chev.className = "ti ti-chevron-down ic-chev"; card.appendChild(chev);
+    card.addEventListener("click", e => { if (e.target.closest(".dep")) return; card.classList.toggle("open"); });
+    pb.appendChild(card);
+  });
+  document.getElementById("pw").classList.add("open");
+}
+
+function closePanel() { document.getElementById("pw").classList.remove("open"); }
+
+buildP1();
+</script>
+</body>
+</html>
