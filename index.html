@@ -14,32 +14,32 @@
   --bg:#F8FAFC;--white:#FFFFFF;--alt:#F1F5F9;
   --border:#E2E8F0;--border-h:#CBD5E1;
   --r:20px;--shadow:0 12px 40px rgba(15,23,42,0.08);--shadow-h:0 20px 60px rgba(15,23,42,0.13);
-  --hero:#0F172A;--h1:#17213C;--h2:#1E293B;--h3:#334155;
+  --h1:#17213C;--h2:#1E293B;--h3:#334155;
   --body:#475569;--sec:#64748B;--meta:#94A3B8;
   --success:#10B981;--warn:#F59E0B;--danger:#EF4444;
 }
-body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
+body{background:var(--bg);font-family:"Inter",sans-serif;color:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
 .page{display:none;min-height:100vh;flex-direction:column}.page.active{display:flex}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
 .topbar-left{display:flex;align-items:center;gap:16px}
-.topbar-title{font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;color:var(--meta);letter-spacing:.08em;text-transform:uppercase}
-.back-btn{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:30px;border:1.5px solid var(--border-h);background:var(--white);cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--h3);transition:all .18s}
+.topbar-title{font-family:"Manrope",sans-serif;font-size:13px;font-weight:700;color:var(--meta);letter-spacing:.08em;text-transform:uppercase}
+.back-btn{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:30px;border:1.5px solid var(--border-h);background:var(--white);cursor:pointer;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;color:var(--h3);transition:all .18s}
 .back-btn:hover{background:var(--alt);border-color:var(--h3);color:var(--h1)}
-.fn-badge{display:flex;align-items:center;gap:8px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;color:var(--h1)}
+.fn-badge{display:flex;align-items:center;gap:8px;font-family:"Manrope",sans-serif;font-size:14px;font-weight:700;color:var(--h1)}
 .fn-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .p1-body{padding:32px;flex:1}
-.p1-eyebrow{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--meta);margin-bottom:24px}
+.p1-eyebrow{font-family:"Manrope",sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--meta);margin-bottom:24px}
 .fn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:880px}
 .fn-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:28px 24px 22px;cursor:pointer;position:relative;overflow:hidden;transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s,border-color .22s}
 .fn-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-h);border-color:var(--border-h)}
 .fn-top-bar{position:absolute;top:0;left:0;right:0;height:4px;border-radius:var(--r) var(--r) 0 0}
 .fn-icon{width:88px;height:88px;object-fit:contain;margin-bottom:18px;display:block}
-.fn-name{font-family:'Manrope',sans-serif;font-size:19px;font-weight:800;color:var(--h1);line-height:1.2;margin-bottom:4px;letter-spacing:-.03em}
+.fn-name{font-family:"Manrope",sans-serif;font-size:19px;font-weight:800;color:var(--h1);line-height:1.2;margin-bottom:4px;letter-spacing:-.03em}
 .fn-sub-count{font-size:12px;color:var(--meta);font-weight:500;margin-bottom:18px}
 .fn-bar-track{height:4px;border-radius:4px;background:var(--alt);overflow:hidden;margin-bottom:10px}
 .fn-bar-fill{height:4px;border-radius:4px;width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
 .fn-foot{display:flex;align-items:center;justify-content:space-between}
-.fn-pct{font-family:'Manrope',sans-serif;font-size:13px;font-weight:700}
+.fn-pct{font-family:"Manrope",sans-serif;font-size:13px;font-weight:700}
 .fn-arrow{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--alt);color:var(--meta);transition:all .2s}
 .fn-card:hover .fn-arrow{transform:translateX(3px)}
 .p2-body{padding:24px 32px 64px;flex:1;max-width:920px}
@@ -47,13 +47,11 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--body);-webk
 .p2-hdr-bar{position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:var(--r) 0 0 var(--r)}
 .p2-icon{width:64px;height:64px;object-fit:contain;flex-shrink:0;border-radius:14px}
 .p2-info{flex:1}
-.p2-name{font-family:'Manrope',sans-serif;font-size:26px;font-weight:900;color:var(--h1);letter-spacing:-.04em;margin-bottom:3px}
+.p2-name{font-family:"Manrope",sans-serif;font-size:26px;font-weight:900;color:var(--h1);letter-spacing:-.04em;margin-bottom:3px}
 .p2-meta{font-size:13px;color:var(--meta);font-weight:500}
-.p2-pill{font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;padding:5px 14px;border-radius:30px;flex-shrink:0}
-/* TREE L1 */
+.p2-pill{font-family:"Manrope",sans-serif;font-size:12px;font-weight:700;padding:5px 14px;border-radius:30px;flex-shrink:0}
 .tree-l1{background:var(--white);border:1.5px solid var(--border);border-radius:16px;margin-bottom:8px;overflow:hidden;position:relative;transition:border-color .18s}
-.tree-l1:hover{border-color:var(--border-h)}
-.tree-l1.expanded{border-color:var(--border-h)}
+.tree-l1:hover{border-color:var(--border-h)}.tree-l1.expanded{border-color:var(--border-h)}
 .l1-bar{position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:16px 0 0 16px;opacity:0;transition:opacity .18s}
 .tree-l1:hover .l1-bar,.tree-l1.expanded .l1-bar{opacity:1}
 .l1-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none}
@@ -61,60 +59,53 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--body);-webk
 .l1-ew{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;transition:transform .18s}
 .tree-l1:hover .l1-ew{transform:scale(1.08)}
 .l1-info{flex:1;min-width:0}
-.l1-name{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;color:var(--h1);margin-bottom:5px;letter-spacing:-.02em}
+.l1-name{font-family:"Manrope",sans-serif;font-size:15px;font-weight:700;color:var(--h1);margin-bottom:5px;letter-spacing:-.02em}
 .l1-meta{display:flex;align-items:center;gap:8px}
 .prog-bar-sm{height:3px;border-radius:3px;background:var(--alt);overflow:hidden;flex-shrink:0}
 .w72{width:72px}.w56{width:56px}.w44{width:44px}
 .prog-fill{height:100%;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.l1-pct{font-family:'Manrope',sans-serif;font-size:12px;font-weight:700}
+.l1-pct{font-family:"Manrope",sans-serif;font-size:12px;font-weight:700}
 .l1-cnt{font-size:11px;color:var(--meta);margin-left:auto}
 .l1-icon{font-size:18px;color:var(--meta);transition:transform .22s;flex-shrink:0}
 .tree-l1.expanded .l1-icon.expand{transform:rotate(180deg)}
 .l1-children{display:none;padding:0 12px 12px}
 .tree-l1.expanded .l1-children{display:block}
-/* TREE L2 */
 .tree-l2{background:var(--alt);border:1.5px solid var(--border);border-radius:12px;margin-bottom:6px;overflow:hidden;transition:all .18s}
 .tree-l2:last-child{margin-bottom:0}
-.tree-l2:hover{border-color:var(--border-h);background:var(--white)}
-.tree-l2.expanded{border-color:var(--border-h);background:var(--white)}
+.tree-l2:hover{border-color:var(--border-h);background:var(--white)}.tree-l2.expanded{border-color:var(--border-h);background:var(--white)}
 .l2-head{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none}
 .l2-head:hover{background:rgba(241,245,249,0.7)}
 .l2-ew{font-size:16px;flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:transform .18s}
 .tree-l2:hover .l2-ew{transform:scale(1.08)}
 .l2-info{flex:1;min-width:0}
-.l2-name{font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:700;color:var(--h2);margin-bottom:4px;letter-spacing:-.015em}
+.l2-name{font-family:"Manrope",sans-serif;font-size:13.5px;font-weight:700;color:var(--h2);margin-bottom:4px;letter-spacing:-.015em}
 .l2-meta{display:flex;align-items:center;gap:7px}
-.l2-pct{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700}
+.l2-pct{font-family:"Manrope",sans-serif;font-size:11px;font-weight:700}
 .l2-cnt{font-size:10px;color:var(--meta);margin-left:auto}
 .l2-icon{font-size:16px;color:var(--meta);transition:transform .22s;flex-shrink:0}
 .tree-l2.expanded .l2-icon.expand{transform:rotate(180deg)}
 .l2-children{display:none;padding:0 10px 10px}
 .tree-l2.expanded .l2-children{display:block}
-/* TREE L3 */
 .tree-l3{background:var(--white);border:1.5px solid var(--border);border-radius:10px;margin-bottom:5px;overflow:hidden;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:8px;padding:10px 12px}
 .tree-l3:last-child{margin-bottom:0}
 .tree-l3:hover{border-color:var(--border-h);background:#FAFBFC;box-shadow:0 2px 8px rgba(15,23,42,0.05)}
-.l3-ew{font-size:14px;flex-shrink:0}
-.l3-name{font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:700;color:var(--h3);flex:1}
+.l3-ew{font-size:14px;flex-shrink:0}.l3-name{font-family:"Manrope",sans-serif;font-size:12.5px;font-weight:700;color:var(--h3);flex:1}
 .l3-bar-bg{width:40px;height:2.5px;border-radius:3px;background:var(--border);overflow:hidden;flex-shrink:0}
 .l3-bar-fill{height:2.5px;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.l3-pct{font-family:'Manrope',sans-serif;font-size:10px;font-weight:700;min-width:26px;text-align:right}
+.l3-pct{font-family:"Manrope",sans-serif;font-size:10px;font-weight:700;min-width:26px;text-align:right}
 .l3-cnt{font-size:9px;color:var(--meta);margin-left:3px}
 .l3-arr{font-size:13px;color:var(--meta);margin-left:4px;flex-shrink:0}
-/* PANEL — 66% width */
-.panel-wrap{position:fixed;inset:0;z-index:200;pointer-events:none}
-.panel-wrap.open{pointer-events:all}
-.panel-scrim{position:absolute;inset:0;background:rgba(15,23,42,0);transition:background .28s}
-.panel-wrap.open .panel-scrim{background:rgba(15,23,42,0.3)}
+.panel-wrap{position:fixed;inset:0;z-index:200;pointer-events:none}.panel-wrap.open{pointer-events:all}
+.panel-scrim{position:absolute;inset:0;background:rgba(15,23,42,0);transition:background .28s}.panel-wrap.open .panel-scrim{background:rgba(15,23,42,0.3)}
 .panel{position:absolute;top:0;right:0;bottom:0;width:66%;background:var(--white);border-left:1.5px solid var(--border);transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden;box-shadow:-20px 0 60px rgba(15,23,42,0.12)}
 .panel-wrap.open .panel{transform:translateX(0)}
 .panel-hdr{padding:28px 36px 22px;border-bottom:1.5px solid var(--border);position:relative;flex-shrink:0}
-.panel-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px 4px 8px;border-radius:30px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;margin-bottom:12px;letter-spacing:.02em}
-.panel-ttl{font-family:'Manrope',sans-serif;font-size:26px;font-weight:800;color:var(--h1);margin-bottom:16px;line-height:1.2;letter-spacing:-.04em}
+.panel-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px 4px 8px;border-radius:30px;font-family:"Manrope",sans-serif;font-size:11px;font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.panel-ttl{font-family:"Manrope",sans-serif;font-size:26px;font-weight:800;color:var(--h1);margin-bottom:16px;line-height:1.2;letter-spacing:-.04em}
 .panel-prog-row{display:flex;align-items:center;gap:12px}
 .panel-prog-bg{flex:1;height:7px;border-radius:7px;background:var(--alt);overflow:hidden}
 .panel-prog-fill{height:7px;border-radius:7px;transition:width 1s cubic-bezier(.4,0,.2,1)}
-.panel-prog-lbl{font-family:'Manrope',sans-serif;font-size:15px;font-weight:800;min-width:44px;text-align:right}
+.panel-prog-lbl{font-family:"Manrope",sans-serif;font-size:15px;font-weight:800;min-width:44px;text-align:right}
 .panel-close{position:absolute;top:24px;right:28px;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--alt);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sec);font-size:16px;transition:all .18s}
 .panel-close:hover{background:var(--border);color:var(--h1)}
 .panel-legend{display:flex;align-items:center;gap:12px;padding:10px 36px;border-bottom:1px solid var(--border);background:var(--alt)}
@@ -122,12 +113,9 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--body);-webk
 .leg-chip{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--sec);font-weight:600}
 .leg-sw{width:11px;height:11px;border-radius:3px}
 .panel-body{flex:1;overflow-y:auto;padding:24px 36px 36px}
-.panel-body::-webkit-scrollbar{width:5px}
-.panel-body::-webkit-scrollbar-track{background:transparent}
-.panel-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:5px}
+.panel-body::-webkit-scrollbar{width:5px}.panel-body::-webkit-scrollbar-track{background:transparent}.panel-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:5px}
 .panel-empty{text-align:center;padding:56px 20px;color:var(--meta);font-size:14px;line-height:1.7}
 .ep-icon{font-size:36px;display:block;margin-bottom:14px;opacity:.3}
-/* INITIATIVE CARDS */
 .ic{border-radius:16px;margin-bottom:14px;overflow:hidden;cursor:pointer;position:relative;border:1.5px solid;transition:box-shadow .18s,transform .15s}
 .ic:last-child{margin-bottom:0}
 .ic:hover{transform:translateX(-2px);box-shadow:0 8px 24px rgba(15,23,42,0.1)}
@@ -136,8 +124,8 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--body);-webk
 .ic.t-g{background:linear-gradient(135deg,#EDFBF4,#F5FDF9);border-color:#8ED9B4}
 .ic-top{padding:20px 22px 16px}
 .ic-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px}
-.ic-name{font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;color:var(--h1);line-height:1.4;flex:1;letter-spacing:-.02em}
-.ic-pill{font-family:'Manrope',sans-serif;font-size:10px;font-weight:800;padding:4px 11px;border-radius:30px;white-space:nowrap;flex-shrink:0;margin-top:3px;letter-spacing:.03em}
+.ic-name{font-family:"Manrope",sans-serif;font-size:16px;font-weight:700;color:var(--h1);line-height:1.4;flex:1;letter-spacing:-.02em}
+.ic-pill{font-family:"Manrope",sans-serif;font-size:10px;font-weight:800;padding:4px 11px;border-radius:30px;white-space:nowrap;flex-shrink:0;margin-top:3px;letter-spacing:.03em}
 .ic-bar-bg{height:5px;border-radius:5px;background:rgba(15,23,42,0.07);overflow:hidden}
 .ic-bar-fill{height:5px;border-radius:5px}
 .ic-chev{position:absolute;right:18px;top:18px;font-size:15px;color:var(--meta);transition:transform .22s}
@@ -152,14 +140,14 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--body);-webk
 .det-item{display:flex;gap:11px;align-items:flex-start;margin-bottom:8px}.det-item:last-child{margin-bottom:0}
 .det-dot{width:6px;height:6px;border-radius:50%;margin-top:8px;flex-shrink:0}
 .det-txt{font-size:14px;color:var(--body);line-height:1.7}
-.cb{display:flex;align-items:center;gap:7px;padding:10px 22px;background:rgba(16,185,129,0.09);border-top:1px solid rgba(16,185,129,0.2);font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;color:#065F46}
+.cb{display:flex;align-items:center;gap:7px;padding:10px 22px;background:rgba(16,185,129,0.09);border-top:1px solid rgba(16,185,129,0.2);font-family:"Manrope",sans-serif;font-size:12px;font-weight:700;color:#065F46}
 .dep{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;cursor:pointer;flex-shrink:0;margin-top:3px;transition:transform .18s}
 .dep:hover{transform:scale(1.25)}
 .dep.mo{background:rgba(245,158,11,0.14);border:1.5px solid rgba(245,158,11,0.45)}.dep.mo i{font-size:12px;color:#B45309}
 .dep.ch{background:rgba(79,156,249,0.12);border:1.5px solid rgba(79,156,249,0.42)}.dep.ch i{font-size:12px;color:#1D5EC0}
 .tt{position:fixed;z-index:999;background:var(--h1);color:#fff;font-size:12px;font-weight:500;padding:8px 14px;border-radius:10px;pointer-events:none;opacity:0;transition:opacity .15s;max-width:300px;white-space:normal;line-height:1.5;box-shadow:0 8px 24px rgba(15,23,42,0.22)}
 .tt.on{opacity:1}
-.tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--h1)}
+.tt::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--h1)}
 </style>
 </head>
 <body>
@@ -236,6 +224,7 @@ const DEPS={
   clh:{lbl:"Communication → Leave / Holiday intimations"},
   lp_clarity:{lbl:"Landing pages → Clarity Recordings"},
   lp_design:{lbl:"Landing pages → Design"},
+  te_training:{lbl:"Teacher Experience → Training (upcoming)"},
 };
 
 const D=[
@@ -244,21 +233,15 @@ const D=[
       {n:"Calendar view of all batches",pct:85,
        d:["Full calendar view across all teachers","Filtered views by teacher, course, and age group","Click into batch — view, add or remove students","Create and delete batches","Transfer students one-by-one between batches and teachers"],
        x:["Bulk transfer of students — critical for teacher resignation scenarios","Calendar view must be made available on the teacher dashboard"]},
-      {n:"Onboarding form for new joinees",pct:15,
-       d:["Form fields and questions designed and finalised"],
+      {n:"Onboarding form for new joinees",pct:15,d:["Form fields and questions designed and finalised"],
        x:["Yet to be picked up by product team","Build form and link sharing / tablet handoff flow","Map submitted data to student backend profile","Make profile accessible to all stakeholders"]},
       {n:"Leave intimation / Skip class",pct:0,d:[],
        x:["Yet to be proposed","Build skip class option — up to 1 hour before class","Notify teacher and admin automatically on skip"]},
       {n:"Attendance tracking",pct:20,
-       d:["Attendance marking built on teacher's Android tablet","Batch-wise marking flow in place"],
+       d:["Attendance marking built on teacher Android tablet","Batch-wise marking flow in place"],
        x:["Does not yet reflect on backend","Admin and teacher views yet to be built","Not in usable state — no data visibility","Notifications, guest student, 24hr window, challenge flow, membership deduction all pending"]},
       {n:"Leave / Holiday intimation",pct:0,d:[],
        x:["Yet to be discussed with product team","Centre head logs teacher leave or centre-wide holiday","Centre-wide → notify admin, all teachers, all learners","Teacher leave → notify admin and that teacher's learners","Select exact dates for leave and resumption","Standard editable message templates"],rb:["clh"]},
-    ]},
-    {n:"Teacher operations",e:"👩‍🏫",i:[
-      {n:"Teacher's handbook",pct:50,
-       d:["Dress code policy — drafted","Trial class policy — drafted","Leave requests and approvals — drafted","Student transfer protocol — drafted","Social media policy — drafted","Working hours policy — drafted","Before & after video — drafted","Zero Tolerance policy — drafted"],
-       x:["Leave penalties not yet in payout system","Handbook not shared with L&D team","Language and tonality yet to be unified"]},
     ]},
     {n:"Sales operations",e:"💰",kids:[
       {n:"Pre-Purchase",e:"🎯",i:[
@@ -276,25 +259,25 @@ const D=[
       {n:"Landing pages",e:"🖥️",i:[
         {n:"Landing to Conversion",pct:10,
          d:["A single Webflow BAT page currently exists"],
-         x:["Page is not in a desirable state — last updated October 2025","Separate optimised landing page needed for paid campaign traffic — fastest load speed, registration-first design","Separate landing page needed for organic and Google paid traffic — more illustrative brand information","Target conversion rate: 12–18%","Next steps to be discussed with product team"]},
+         x:["Page not in desirable state — last updated October 2025","Separate optimised landing page needed for paid campaign traffic — fastest load speed, registration-first design","Separate landing page needed for organic and Google paid traffic — more illustrative brand information","Target conversion rate: 12–18%","Next steps to be discussed with product team"]},
         {n:"Clarity Recordings",pct:5,
          d:["Observed that bounce rate is high","Users keep clicking maestro images expecting information to load"],
-         x:["Undertake thorough Clarity study and share findings with product team","Page must pre-load key information visible on first view","Load speed must be fastest possible","Target conversion rate: 12–18%","Optimise page so users do not need to click to reveal basic information"]},
+         x:["Undertake thorough Clarity study and share findings with product team","Page must pre-load key information visible on first view","Load speed must be fastest possible","Target conversion rate: 12–18%"]},
         {n:"Design",pct:10,
          d:["Current landing page exists"],
-         x:["Current page lacks desirable brand elements","Redesign to reflect full brand guidelines","Include key products & services and maestros / ambassadors prominently","Use online world landing page as reference point","Incorporate urgency creation elements","Conduct competitor website study"]},
+         x:["Current page lacks desirable brand elements","Redesign to reflect full brand guidelines","Include key products & services and maestros / ambassadors prominently","Use online world landing page as reference","Incorporate urgency creation elements","Conduct competitor website study"]},
       ]},
       {n:"Meta",e:"📣",kids:[
         {n:"Lead Generation & Analysis",e:"📊",i:[
           {n:"Lead capturing",pct:60,
-           d:["Meta lead form has been running successfully","CPL reduced to under ₹100 (previously ₹400–₹500)"],
-           x:["Landing page campaigns are paused due to poor results — dependent on Landing pages: Clarity Recordings and Design","Ensure meta lead form captures only relevant fields to prevent bounce","Lead capture can happen via meta platform directly or by redirecting to landing page"],
+           d:["Meta lead form running successfully","CPL reduced to under ₹100 (previously ₹400–₹500)"],
+           x:["Landing page campaigns paused due to poor results — dependent on Landing pages: Clarity Recordings and Design","Ensure meta lead form captures only relevant fields to prevent bounce"],
            rb:["lp_clarity","lp_design"]},
           {n:"Full-funnel tracking",pct:30,
            d:["All lead information flowing consistently into Salesforce"],
-           x:["Sales operations team must start updating centre visits in Salesforce","Marketing team to study Salesforce data and build full-funnel dashboard on Salesforce or Mixpanel","Key metrics: Lead volume, Lead to centre visits %, Centre visits to Conversion %","Track campaign name, ad-set name, and creative name per lead to identify top-performing creatives"]},
+           x:["Sales operations team must start updating centre visits in Salesforce","Marketing team to build full-funnel dashboard on Salesforce or Mixpanel","Key metrics: Lead volume, Lead to centre visits %, Centre visits to Conversion %","Track campaign name, ad-set name, and creative name per lead"]},
           {n:"Channel-wise ROAS",pct:0,d:[],
-           x:["To be discussed with the product team","Salesforce to reflect payments received from each paying customer","Capture marketing budget spend on Salesforce to enable ROAS calculation","Meta channel-wise ROAS information to be available directly on Salesforce"]},
+           x:["To be discussed with the product team","Salesforce to reflect payments received from each paying customer","Capture marketing budget spend on Salesforce to enable ROAS calculation","Meta channel-wise ROAS to be available directly on Salesforce"]},
         ]},
       ]},
     ]},
@@ -306,7 +289,36 @@ const D=[
     {n:"Academic operations",e:"📚",i:[]},
     {n:"Examinations & certifications",e:"🏅",i:[]},
   ]},
-  {n:"Teacher Experience",k:"te",s:[]},
+  {n:"Teacher Experience",k:"te",s:[
+    {n:"Administration",e:"📋",kids:[
+      {n:"Rules & Policies",e:"📜",i:[
+        {n:"Teacher's handbook",pct:50,
+         d:["Dress code policy — drafted","Trial class policy — drafted","Leave requests and approvals — drafted","Student transfer protocol — drafted","Social media policy — drafted","Working hours policy — drafted","Before & after video — drafted","Zero Tolerance policy — drafted"],
+         x:["Leave penalties not yet in payout system","Handbook not shared with L&D team","Language and tonality yet to be unified"]},
+        {n:"Alignment with HR and L&D Teams",pct:0,d:[],
+         x:["Yet to be formalised among HR and L&D teams","Discussion with HR and L&D team required","HR and L&D teams to be fully aware of handbook and underlying policies","Enable them to suggest remedial or punitive action for lapses","Formalised process to bring about discipline among teachers"]},
+        {n:"Disciplinary monitoring & feedback",pct:20,
+         d:["Teachers inform the centre head before taking breaks","Centre heads inform learners efficiently when breaks occur"],
+         x:["HR has been requested to populate and share biometric data for June '26","Once data arrives, analyse entry and exit timings for each teacher","Track whether teachers arrive on time for first class and adhere to working hours","Build process for centre head to track class start times"]},
+      ]},
+    ]},
+    {n:"Wellbeing",e:"🌿",kids:[
+      {n:"Rewards & Recognition",e:"🏆",i:[
+        {n:"Renewal incentive",pct:80,
+         d:["Incentive structure designed and implemented","Rewards teachers for renewing learners — higher incentive for longer duration packages"],
+         x:["Teachers need training on nurturing learners for positive renewal results","Dependent on upcoming training sub-section initiative"],
+         rb:["te_training"]},
+        {n:"Teacher R&R Ceremony",pct:45,
+         d:["R&R conducted every month (though sometimes skipped)","Teachers given printed certificates"],
+         x:["R&R to be calendarised so it is conducted each month without fail","Trophy design has been shortlisted — order to be placed with vendor","Teachers to be fully aware of KPIs that double as award categories","Academy to post winner pictures on social media — winners to re-share"]},
+      ]},
+      {n:"Health",e:"❤️",i:[
+        {n:"Medical Insurance",pct:10,
+         d:["Initial inquiry completed with insurer Plum"],
+         x:["Share list of teachers with relevant details with Plum","Receive quotation from insurer","Discuss with management and seek approval","Make necessary changes to teachers' CTC if required","Execute medical insurance for all teachers","Teachers to receive slightly higher medical cover than regular employees"]},
+      ]},
+    ]},
+  ]},
   {n:"Learner Experience",k:"le",s:[
     {n:"Performance opportunities",e:"🎤",kids:[
       {n:"Artium Superstar",e:"⭐",i:[{n:"Auditions",pct:100,d:["Offline learners can submit audition clips — same as online","Feature built and live"],x:[]}]},
@@ -321,7 +333,7 @@ const D=[
     {n:"User Interface",e:"🖥️",kids:[
       {n:"Academic Interface",e:"🎓",i:[
         {n:"Curriculum view",pct:100,d:["Full curriculum view for course and level","Notes and resources for completed topics and upcoming class"],x:[]},
-        {n:"Topic-wise checklist",pct:10,d:["Feature available in the online world"],x:["Yet to be discussed for offline world","Build topic list view per course level","Teacher marks topics complete — learner can see","Learner can challenge incorrectly marked topics","Learner assigns understanding % via slider or input"]},
+        {n:"Topic-wise checklist",pct:10,d:["Feature available in the online world"],x:["Yet to be discussed for offline world","Build topic list view per course level","Teacher marks topics complete","Learner can challenge incorrectly marked topics","Learner assigns understanding % via slider or input"]},
       ]},
       {n:"Membership Details",e:"🎟️",i:[
         {n:"Transaction details",pct:0,d:[],x:["Yet to be proposed","Build learner-facing transaction history","Tag as new admission or renewal","Show date, classes, course name, level, amount"]},
@@ -332,7 +344,7 @@ const D=[
       {n:"Communication",e:"💬",i:[
         {n:"Chat with teacher",pct:100,d:["Chat built and live","Text and voice messages supported","File uploads including audio","Notifications to both parties"],x:[]},
         {n:"Chat with centre head",pct:0,d:[],x:["Yet to be discussed","Build chat with centre head","Text, voice, file uploads including audio"]},
-        {n:"Raise a ticket",pct:0,d:[],x:["Yet to be discussed","Build ticket raising flow — learner describes issue","Route to city supervisor with immediate notification"]},
+        {n:"Raise a ticket",pct:0,d:[],x:["Yet to be discussed","Build ticket raising flow","Route to city supervisor with immediate notification"]},
         {n:"Leave / Holiday intimations",pct:0,d:[],x:["Yet to be discussed","Notifications for teacher leaves and holidays","Include exact dates, timings, and resumption date"],do:["blh"]},
       ]},
     ]},
@@ -367,7 +379,7 @@ function buildP1(){
     track.appendChild(fill);card.appendChild(track);
     const foot=document.createElement("div");foot.className="fn-foot";
     const pct=document.createElement("span");pct.className="fn-pct";pct.style.color=c.a;pct.textContent=pT(fa);
-    const arr=document.createElement("div");arr.className="fn-arrow";arr.style.color=c.a;arr.innerHTML='<i class="ti ti-arrow-right"></i>';
+    const arr=document.createElement("div");arr.className="fn-arrow";arr.style.color=c.a;arr.innerHTML="<i class=\"ti ti-arrow-right\"></i>";
     foot.appendChild(pct);foot.appendChild(arr);card.appendChild(foot);
     card.addEventListener("mouseenter",()=>{card.style.boxShadow=`0 20px 60px ${c.a}22,0 4px 20px rgba(15,23,42,0.08)`;card.style.borderColor=c.a+"40"});
     card.addEventListener("mouseleave",()=>{card.style.boxShadow="";card.style.borderColor=""});
@@ -390,7 +402,7 @@ function goFn(fi){
   bd.appendChild(hdr);
   if(!fn.s.length){
     const ph=document.createElement("div");ph.style.cssText="text-align:center;padding:56px 16px;color:#94A3B8;font-size:14px;line-height:1.7";
-    ph.innerHTML=`<i class="ti ti-clipboard-list" style="font-size:36px;display:block;margin-bottom:14px;opacity:.3"></i>Brief coming soon.<br>Sub-functions will appear here once briefed.`;
+    ph.innerHTML="<i class=\"ti ti-clipboard-list\" style=\"font-size:36px;display:block;margin-bottom:14px;opacity:.3\"></i>Brief coming soon.<br>Sub-functions will appear here once briefed.";
     bd.appendChild(ph);
   } else {
     fn.s.forEach((sub,si)=>renderL1(bd,fn,sub,c,fi,si));
@@ -474,7 +486,7 @@ function goHome(){closePanel();document.getElementById("p2").classList.remove("a
 
 function mkDep(type,id,txt){
   const el=document.createElement("div");el.className=`dep ${type}`;
-  el.innerHTML=type==="mo"?'<i class="ti ti-crown"></i>':`<i class="ti ti-git-branch"></i>`;
+  el.innerHTML=type==="mo"?"<i class=\"ti ti-crown\"></i>":"<i class=\"ti ti-git-branch\"></i>";
   el.addEventListener("mouseenter",()=>showTT(el,txt));el.addEventListener("mouseleave",hideTT);
   return el;
 }
@@ -490,7 +502,7 @@ function openPanel(fn,node,c){
   const lbl=document.getElementById("ppl");lbl.textContent=pT(sp);lbl.style.color=bC(sp);
   const pb=document.getElementById("pb");
   if(!node.i||!node.i.length){
-    pb.innerHTML=`<div class="panel-empty"><i class="ti ti-clipboard-list ep-icon"></i>No initiatives logged yet.<br>Keep briefing to fill this in.</div>`;
+    pb.innerHTML="<div class=\"panel-empty\"><i class=\"ti ti-clipboard-list ep-icon\"></i>No initiatives logged yet.<br>Keep briefing to fill this in.</div>";
     document.getElementById("pw").classList.add("open");return;
   }
   pb.innerHTML="";
@@ -507,11 +519,11 @@ function openPanel(fn,node,c){
     const bb=document.createElement("div");bb.className="ic-bar-bg";
     const bf=document.createElement("div");bf.className="ic-bar-fill";bf.style.cssText=`width:${init.pct}%;background:${bC(init.pct)}`;bb.appendChild(bf);top.appendChild(bb);
     card.appendChild(top);
-    if(isC){const cb=document.createElement("div");cb.className="cb";cb.innerHTML='<i class="ti ti-circle-check"></i> Complete';card.appendChild(cb);}
+    if(isC){const cb=document.createElement("div");cb.className="cb";cb.innerHTML="<i class=\"ti ti-circle-check\"></i> Complete";card.appendChild(cb);}
     const det=document.createElement("div");det.className="ic-det";
-    const dH=init.d&&init.d.length?`<div class="det-sec"><div class="det-lbl">✅ What's been done</div>${init.d.map(d=>`<div class="det-item"><div class="det-dot" style="background:#10B981"></div><div class="det-txt">${d}</div></div>`).join("")}</div>`:"";
-    const pH=init.x&&init.x.length?`<div class="det-sec"><div class="det-lbl">🔲 What's pending</div>${init.x.map(p=>`<div class="det-item"><div class="det-dot" style="background:#F59E0B"></div><div class="det-txt">${p}</div></div>`).join("")}</div>`:"";
-    det.innerHTML=dH+(pH||(!isC?'<div class="det-sec"><div class="det-lbl">Nothing pending</div></div>':""));
+    const dH=init.d&&init.d.length?"<div class=\"det-sec\"><div class=\"det-lbl\">✅ What's been done</div>"+init.d.map(d=>"<div class=\"det-item\"><div class=\"det-dot\" style=\"background:#10B981\"></div><div class=\"det-txt\">"+d+"</div></div>").join("")+"</div>":"";
+    const pH=init.x&&init.x.length?"<div class=\"det-sec\"><div class=\"det-lbl\">🔲 What's pending</div>"+init.x.map(p=>"<div class=\"det-item\"><div class=\"det-dot\" style=\"background:#F59E0B\"></div><div class=\"det-txt\">"+p+"</div></div>").join("")+"</div>":"";
+    det.innerHTML=dH+(pH||(!isC?"<div class=\"det-sec\"><div class=\"det-lbl\">Nothing pending</div></div>":""));
     card.appendChild(det);
     const chev=document.createElement("i");chev.className="ti ti-chevron-down ic-chev";card.appendChild(chev);
     card.addEventListener("click",e=>{if(e.target.closest(".dep"))return;card.classList.toggle("open")});
