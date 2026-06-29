@@ -246,7 +246,7 @@ body.edit-mode .ic-edit-btn{display:flex}
 .save-status.saving{background:rgba(245,158,11,0.12);color:#92400E}
 .save-status.saved{background:rgba(16,185,129,0.12);color:#065F46}
 .save-status.error{background:rgba(239,68,68,0.12);color:#7C2D12}
-.gh-config-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;font-size:11px;font-weight:600;color:var(--meta);transition:all .18s;white-space:nowrap}
+.gh-config-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;font-size:11px;font-weight:600;color:var(--meta);transition:all .18s;white-space:nowrap;flex-shrink:0}
 .gh-config-btn:hover{border-color:var(--border-h);color:var(--sec)}
 
 </style>
@@ -260,7 +260,7 @@ body.edit-mode .ic-edit-btn{display:flex}
     <span class="topbar-title">Artium Academy — Offline Centres</span>
     <div class="topbar-right">
       <div class="edit-badge" id="eb1"><i class="ti ti-pencil"></i> Edit mode on</div>
-      <div class="save-status" id="ss1"></div><button class="gh-config-btn" onclick="openGHSetup()"><i class="ti ti-settings"></i></button><button class="save-btn" id="sb1" onclick="saveToGitHub()"><i class="ti ti-cloud-upload"></i> Save to GitHub</button>
+      <div class="save-status" id="ss1"></div><button class="save-btn" id="sb1" onclick="saveToGitHub()"><i class="ti ti-cloud-upload"></i> Save to GitHub</button><button class="gh-config-btn" onclick="openGHSetup()" title="GitHub settings"><i class="ti ti-settings"></i> GitHub</button>
       <button class="edit-toggle" id="et1" onclick="toggleEditMode()"><i class="ti ti-pencil"></i> Edit mode</button>
     </div>
   </div>
@@ -279,7 +279,7 @@ body.edit-mode .ic-edit-btn{display:flex}
     </div>
     <div class="topbar-right">
       <div class="edit-badge" id="eb2"><i class="ti ti-pencil"></i> Edit mode on</div>
-      <div class="save-status" id="ss2"></div><button class="gh-config-btn" onclick="openGHSetup()"><i class="ti ti-settings"></i></button><button class="save-btn" id="sb2" onclick="saveToGitHub()"><i class="ti ti-cloud-upload"></i> Save to GitHub</button>
+      <div class="save-status" id="ss2"></div><button class="save-btn" id="sb2" onclick="saveToGitHub()"><i class="ti ti-cloud-upload"></i> Save to GitHub</button><button class="gh-config-btn" onclick="openGHSetup()" title="GitHub settings"><i class="ti ti-settings"></i> GitHub</button>
       <button class="edit-toggle" id="et2" onclick="toggleEditMode()"><i class="ti ti-pencil"></i> Edit mode</button>
     </div>
   </div>
@@ -515,6 +515,19 @@ function toggleEditMode() {
     if (el) el.classList.toggle("show", editMode);
   });
 }
+// Show GitHub button always on load
+window.addEventListener("DOMContentLoaded", function() {
+  // gh-config-btn is always visible via CSS — no action needed
+  // Pre-fill config if already set
+  var cfg = getGHConfig();
+  if (cfg.user) {
+    ["ss1","ss2"].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) { el.className = "save-status show saved"; el.innerHTML = '<i class="ti ti-brand-github"></i> ' + cfg.user + "/" + cfg.repo; }
+    });
+    setTimeout(function(){ clearStatus(); }, 3000);
+  }
+});
 
 // ── SAVE ──
 // ── GITHUB CONFIG ──
@@ -666,13 +679,13 @@ async function parseBrief() {
   document.getElementById("pct-row").classList.remove("show");
   var prompt = "You are parsing a business initiative brief for a DFD tool.\n\nBrief:\n" + brief + "\n\nReturn ONLY a valid JSON object with this exact structure (no markdown, no explanation):\n{\"name\":\"initiative name (concise, 3-6 words, title case)\",\"pct\":<integer 0-100>,\"done\":[\"item1\",\"item2\"],\"pending\":[\"item1\",\"item2\"]}\n\nRules: name is concise title case; pct reflects actual completion; done = things completed; pending = things yet to do; each bullet is one clear sentence; return ONLY the JSON.";
   try {
-    var resp = await fetch("https://api.anthropic.com/v1/messages", {
+    var resp = await fetch("https://artium-claude-proxy.omkar-58a.workers.dev", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:prompt}]})
+      body:JSON.stringify({messages:[{role:"user",content:prompt}]})
     });
     var data = await resp.json();
-    if (!data.content || !data.content[0]) throw new Error("No response");
+    if (!data.content || !data.content[0]) throw new Error("No response from Worker");
     var raw = data.content[0].text.trim().replace(/```json|```/g,"").trim();
     parsedResult = JSON.parse(raw);
     document.getElementById("pct-slider").value = parsedResult.pct;
