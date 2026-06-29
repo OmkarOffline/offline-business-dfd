@@ -221,6 +221,34 @@ body.edit-mode .ic-edit-btn{display:flex}
 .modal-confirm-btn{flex:1;padding:12px;border-radius:12px;background:var(--blue);border:none;color:#fff;font-family:"Manrope",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:none}
 .modal-confirm-btn:hover{background:var(--blue-h)}
 .modal-confirm-btn.show{display:block}
+
+/* GITHUB SETUP MODAL */
+.gh-setup-wrap{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;background:rgba(15,23,42,0.5);backdrop-filter:blur(4px)}
+.gh-setup-wrap.open{display:flex}
+.gh-setup{background:var(--white);border-radius:24px;width:min(560px,95vw);box-shadow:0 32px 80px rgba(15,23,42,0.2);overflow:hidden}
+.gh-setup-hdr{padding:28px 32px 20px;border-bottom:1px solid var(--border)}
+.gh-setup-title{font-family:"Manrope",sans-serif;font-size:20px;font-weight:800;color:var(--h1);margin-bottom:4px;letter-spacing:-.03em}
+.gh-setup-sub{font-size:13px;color:var(--meta);line-height:1.5}
+.gh-setup-body{padding:24px 32px 28px;display:flex;flex-direction:column;gap:16px}
+.gh-field{display:flex;flex-direction:column;gap:6px}
+.gh-field label{font-family:"Manrope",sans-serif;font-size:12px;font-weight:700;color:var(--h3);letter-spacing:.02em}
+.gh-field input{padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;color:var(--h1);outline:none;transition:border-color .18s;background:var(--bg);font-family:"Inter",sans-serif}
+.gh-field input:focus{border-color:var(--blue)}
+.gh-field .gh-hint{font-size:11.5px;color:var(--meta);line-height:1.5}
+.gh-setup-footer{padding:0 32px 28px;display:flex;gap:10px}
+.gh-save-btn{flex:1;padding:12px;border-radius:12px;background:var(--blue);border:none;color:#fff;font-family:"Manrope",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.gh-save-btn:hover{background:var(--blue-h)}
+.gh-cancel-btn{padding:12px 20px;border-radius:12px;border:1.5px solid var(--border-h);background:var(--white);color:var(--h3);font-family:"Manrope",sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+.gh-cancel-btn:hover{background:var(--alt)}
+/* Save status */
+.save-status{font-size:12px;font-weight:600;padding:6px 12px;border-radius:20px;display:none;align-items:center;gap:5px;white-space:nowrap}
+.save-status.show{display:flex}
+.save-status.saving{background:rgba(245,158,11,0.12);color:#92400E}
+.save-status.saved{background:rgba(16,185,129,0.12);color:#065F46}
+.save-status.error{background:rgba(239,68,68,0.12);color:#7C2D12}
+.gh-config-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;font-size:11px;font-weight:600;color:var(--meta);transition:all .18s;white-space:nowrap}
+.gh-config-btn:hover{border-color:var(--border-h);color:var(--sec)}
+
 </style>
 </head>
 <body>
@@ -232,7 +260,7 @@ body.edit-mode .ic-edit-btn{display:flex}
     <span class="topbar-title">Artium Academy — Offline Centres</span>
     <div class="topbar-right">
       <div class="edit-badge" id="eb1"><i class="ti ti-pencil"></i> Edit mode on</div>
-      <button class="save-btn" id="sb1" onclick="saveHTML()"><i class="ti ti-download"></i> Save updated file</button>
+      <div class="save-status" id="ss1"></div><button class="gh-config-btn" onclick="openGHSetup()"><i class="ti ti-settings"></i></button><button class="save-btn" id="sb1" onclick="saveToGitHub()"><i class="ti ti-cloud-upload"></i> Save to GitHub</button>
       <button class="edit-toggle" id="et1" onclick="toggleEditMode()"><i class="ti ti-pencil"></i> Edit mode</button>
     </div>
   </div>
@@ -251,7 +279,7 @@ body.edit-mode .ic-edit-btn{display:flex}
     </div>
     <div class="topbar-right">
       <div class="edit-badge" id="eb2"><i class="ti ti-pencil"></i> Edit mode on</div>
-      <button class="save-btn" id="sb2" onclick="saveHTML()"><i class="ti ti-download"></i> Save updated file</button>
+      <div class="save-status" id="ss2"></div><button class="gh-config-btn" onclick="openGHSetup()"><i class="ti ti-settings"></i></button><button class="save-btn" id="sb2" onclick="saveToGitHub()"><i class="ti ti-cloud-upload"></i> Save to GitHub</button>
       <button class="edit-toggle" id="et2" onclick="toggleEditMode()"><i class="ti ti-pencil"></i> Edit mode</button>
     </div>
   </div>
@@ -489,18 +517,99 @@ function toggleEditMode() {
 }
 
 // ── SAVE ──
-function saveHTML() {
+// ── GITHUB CONFIG ──
+function openGHSetup() {
+  // Pre-fill with saved values
+  var cfg = getGHConfig();
+  if (cfg.token) document.getElementById("gh-token").value = cfg.token;
+  if (cfg.user)  document.getElementById("gh-user").value  = cfg.user;
+  if (cfg.repo)  document.getElementById("gh-repo").value  = cfg.repo;
+  if (cfg.file)  document.getElementById("gh-file").value  = cfg.file;
+  document.getElementById("gh-setup-wrap").classList.add("open");
+}
+function closeGHSetup() {
+  document.getElementById("gh-setup-wrap").classList.remove("open");
+}
+function saveGHConfig() {
+  var cfg = {
+    token: document.getElementById("gh-token").value.trim(),
+    user:  document.getElementById("gh-user").value.trim(),
+    repo:  document.getElementById("gh-repo").value.trim(),
+    file:  document.getElementById("gh-file").value.trim()
+  };
+  if (!cfg.token || !cfg.user || !cfg.repo || !cfg.file) {
+    alert("Please fill in all fields."); return;
+  }
+  localStorage.setItem("artium_gh_cfg", JSON.stringify(cfg));
+  closeGHSetup();
+  setStatus("saved", "Configuration saved");
+  setTimeout(function(){ clearStatus(); }, 2500);
+}
+function getGHConfig() {
+  try { return JSON.parse(localStorage.getItem("artium_gh_cfg")) || {}; }
+  catch(e) { return {}; }
+}
+function setStatus(type, msg) {
+  ["ss1","ss2"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.className = "save-status show " + type;
+    el.innerHTML = (type==="saving" ? '<i class="ti ti-loader spin"></i>' : type==="saved" ? '<i class="ti ti-circle-check"></i>' : '<i class="ti ti-alert-circle"></i>') + " " + msg;
+  });
+}
+function clearStatus() {
+  ["ss1","ss2"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.className = "save-status";
+  });
+}
+
+async function saveToGitHub() {
+  var cfg = getGHConfig();
+  if (!cfg.token || !cfg.user || !cfg.repo || !cfg.file) {
+    openGHSetup(); return;
+  }
+  setStatus("saving", "Saving to GitHub...");
+  // Build updated HTML with current data
   var dStr = "const D=" + JSON.stringify(D) + ";";
-  var html = document.documentElement.outerHTML;
-  // Replace the D= block
-  html = html.replace(/const D=\[[\s\S]*?\];/, dStr);
-  var blob = new Blob([html], {type:"text/html"});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement("a");
-  a.href = url;
-  a.download = "artium_dfd_" + new Date().toISOString().slice(0,10) + ".html";
-  a.click();
-  URL.revokeObjectURL(url);
+  var content = document.documentElement.outerHTML;
+  content = content.replace(/const D=\[[\s\S]*?\];/, dStr);
+  // Get current file SHA (needed for update)
+  var apiBase = "https://api.github.com/repos/" + cfg.user + "/" + cfg.repo + "/contents/" + cfg.file;
+  var headers = {
+    "Authorization": "token " + cfg.token,
+    "Content-Type": "application/json",
+    "Accept": "application/vnd.github.v3+json"
+  };
+  try {
+    var sha = null;
+    var getResp = await fetch(apiBase, {headers: headers});
+    if (getResp.ok) {
+      var fileData = await getResp.json();
+      sha = fileData.sha;
+    }
+    // Encode content to base64
+    var encoded = btoa(unescape(encodeURIComponent(content)));
+    var body = {
+      message: "DFD update " + new Date().toISOString().slice(0,16).replace("T"," "),
+      content: encoded
+    };
+    if (sha) body.sha = sha;
+    var putResp = await fetch(apiBase, {
+      method: "PUT",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+    if (putResp.ok) {
+      setStatus("saved", "Saved to GitHub ✓");
+      setTimeout(function(){ clearStatus(); }, 3000);
+    } else {
+      var err = await putResp.json();
+      setStatus("error", err.message || "Save failed");
+    }
+  } catch(e) {
+    setStatus("error", "Network error — check connection");
+  }
 }
 
 // ── MODAL ──
@@ -833,5 +942,40 @@ function closePanel() { document.getElementById("pw").classList.remove("open"); 
 
 buildP1();
 </script>
+
+<!-- GITHUB SETUP MODAL -->
+<div class="gh-setup-wrap" id="gh-setup-wrap">
+  <div class="gh-setup">
+    <div class="gh-setup-hdr">
+      <div class="gh-setup-title">GitHub Auto-Save Setup</div>
+      <div class="gh-setup-sub">Enter your details once. They are saved to your browser only and never shared.</div>
+    </div>
+    <div class="gh-setup-body">
+      <div class="gh-field">
+        <label>Personal Access Token</label>
+        <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        <span class="gh-hint">Generate at GitHub → Settings → Developer settings → Personal access tokens (classic). Needs <strong>repo</strong> scope only.</span>
+      </div>
+      <div class="gh-field">
+        <label>GitHub Username</label>
+        <input type="text" id="gh-user" placeholder="omkaroffline">
+      </div>
+      <div class="gh-field">
+        <label>Repository Name</label>
+        <input type="text" id="gh-repo" placeholder="offline-business-dfd">
+      </div>
+      <div class="gh-field">
+        <label>Filename in repo</label>
+        <input type="text" id="gh-file" placeholder="index.html">
+        <span class="gh-hint">If the file exists, it will be replaced. If not, it will be created.</span>
+      </div>
+    </div>
+    <div class="gh-setup-footer">
+      <button class="gh-cancel-btn" onclick="closeGHSetup()">Cancel</button>
+      <button class="gh-save-btn" onclick="saveGHConfig()"><i class="ti ti-check"></i> Save configuration</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
