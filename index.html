@@ -945,13 +945,9 @@ function renderLevel(nodes, label, fi){
 
     card.addEventListener("click",()=>{
       if(node.i && node.i.length){
-        // Leaf — open initiative list or single init
-        if(node.i.length===1){
-          openInit(node.i[0], node.n, fi);
-        } else {
-          navStack.push({label:node.n, children:node.i, isInitList:true});
-          renderInitList(node.i, node.n, fi);
-        }
+        // Always navigate inside folder first, even with one initiative
+        navStack.push({label:node.n, children:node.i, isInitList:true});
+        renderInitList(node.i, node.n, fi);
       } else {
         const children = node.kids || node.s || [];
         navStack.push({label:node.n, children:children});
