@@ -168,19 +168,19 @@ body{background:var(--bg);font-family:"Inter",sans-serif;color:var(--body);-webk
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   width:72px;height:72px;object-fit:contain;
-  z-index:2;
+  z-index:3;
 }
 /* Percentage bubble on arc endpoint */
 .fn-arc-bubble{
   position:absolute;
-  width:28px;height:28px;border-radius:50%;
+  width:36px;height:36px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-family:"Manrope",sans-serif;
-  font-size:7.5px;font-weight:800;color:#fff;
-  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+  font-size:9px;font-weight:800;color:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,0.25);
   transition:left 1.4s cubic-bezier(.4,0,.2,1), top 1.4s cubic-bezier(.4,0,.2,1);
   pointer-events:none;z-index:5;
-  border:2px solid #fff;
+  border:2.5px solid #fff;
 }
 .fn-grid-label{
   font-family:"Manrope",sans-serif;
@@ -1281,15 +1281,15 @@ function renderInitList(inits, label, fi){
     // Page icon inside ring
     const pageIconI = document.createElement("img");
     pageIconI.src = "data:image/png;base64," + ICON_B64["ui_page"];
-    pageIconI.style.cssText = `position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:${wrapSzI*0.55}px;height:${wrapSzI*0.55}px;object-fit:contain`;
+    pageIconI.style.cssText = `position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:${wrapSzI*0.58}px;height:${wrapSzI*0.58}px;object-fit:contain;z-index:3`;
     initArcWrap.appendChild(pageIconI);
     // Bubble
     const bubbleI = document.createElement("div");
     bubbleI.className = "fn-arc-bubble";
     bubbleI.style.background = bC(init.pct);
     bubbleI.textContent = init.pct + "%";
-    bubbleI.style.left = (wrapSzI/2 - 13) + "px";
-    bubbleI.style.top = "0px";
+    bubbleI.style.left = (wrapSzI/2 - 18) + "px";
+    bubbleI.style.top = "-18px";
     initArcWrap.appendChild(bubbleI);
     card.appendChild(initArcWrap);
 
@@ -1304,8 +1304,8 @@ function renderInitList(inits, label, fi){
     setTimeout(()=>{
       fillCI.style.strokeDashoffset = offsetI;
       const angle = (init.pct/100) * 2 * Math.PI - Math.PI/2;
-      const bxI = cxI + rI * Math.cos(angle) - 13;
-      const byI = cyI + rI * Math.sin(angle) - 13;
+      const bxI = cxI + rI * Math.cos(angle) - 18;
+      const byI = cyI + rI * Math.sin(angle) - 18;
       bubbleI.style.left = bxI + "px";
       bubbleI.style.top  = byI + "px";
     }, 400);
@@ -1916,8 +1916,8 @@ function buildHomeGrid(){
       bubble.style.background = c.a;
       bubble.textContent = pct + "%";
       // Start at top (0% position), will be repositioned after animation
-      bubble.style.left = (wrapSize/2 - 13) + "px";
-      bubble.style.top = "0px";
+      bubble.style.left = (wrapSize/2 - 18) + "px";
+      bubble.style.top = "-18px";
       arcWrap.appendChild(bubble);
 
       const img = document.createElement("img");
@@ -1961,8 +1961,8 @@ function buildHomeGrid(){
       const cx = wrapSize/2, cy = wrapSize/2;
       // Angle: start -90deg (top), go clockwise by pct
       const angle = (pct/100) * 2 * Math.PI - Math.PI/2;
-      const bx = cx + r * Math.cos(angle) - 13; // 13 = bubble radius
-      const by = cy + r * Math.sin(angle) - 13;
+      const bx = cx + r * Math.cos(angle) - 18; // 18 = half bubble size
+      const by = cy + r * Math.sin(angle) - 18;
       bubble.style.left = bx + "px";
       bubble.style.top  = by + "px";
     });
