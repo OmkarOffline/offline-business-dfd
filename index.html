@@ -142,28 +142,45 @@ body{background:var(--bg);font-family:"Inter",sans-serif;color:var(--body);-webk
 .fn-grid-item:hover{transform:translateY(-8px)}
 .fn-grid-item:hover .fn-grid-label{color:var(--h1)}
 /* Arc for grid items */
-.fn-arc-wrap{position:relative;width:124px;height:124px;flex-shrink:0;margin-bottom:14px}
-.fn-arc-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.fn-arc-wrap{
+  position:relative;width:124px;height:124px;flex-shrink:0;margin-bottom:14px;
+}
+/* White circle background inside arc */
+.fn-arc-wrap::before{
+  content:"";
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:calc(100% - 18px);
+  height:calc(100% - 18px);
+  border-radius:50%;
+  background:#fff;
+  z-index:0;
+  box-shadow:0 2px 12px rgba(15,23,42,0.08);
+}
+.fn-arc-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:1}
 .fn-arc-bg{fill:none;stroke:rgba(15,23,42,0.08);stroke-width:5;stroke-linecap:round}
 .fn-arc-fill{fill:none;stroke-width:5;stroke-linecap:round;
   transform:rotate(-90deg);transform-origin:50% 50%;
   transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)}
-.fn-arc-white{fill:white;stroke:none}
+.fn-arc-white{fill:none;stroke:none}
 .fn-arc-icon{
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   width:72px;height:72px;object-fit:contain;
+  z-index:2;
 }
 /* Percentage bubble on arc endpoint */
 .fn-arc-bubble{
   position:absolute;
-  width:26px;height:26px;border-radius:50%;
+  width:28px;height:28px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-family:"Manrope",sans-serif;
   font-size:7.5px;font-weight:800;color:#fff;
-  box-shadow:0 2px 8px rgba(0,0,0,0.2);
-  transition:all 1.4s cubic-bezier(.4,0,.2,1);
-  pointer-events:none;z-index:2;
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+  transition:left 1.4s cubic-bezier(.4,0,.2,1), top 1.4s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;z-index:5;
+  border:2px solid #fff;
 }
 .fn-grid-label{
   font-family:"Manrope",sans-serif;
@@ -1222,18 +1239,6 @@ function renderInitList(inits, label, fi){
     const card = document.createElement("div");
     card.className = "folder-card";
 
-    const arr = document.createElement("i");
-    arr.className = "ti ti-arrow-right fc-arrow";
-    card.appendChild(arr);
-
-    // Use a document icon instead of folder
-    // icon now lives inside the arc ring above
-    card.appendChild(ico);
-
-    const nm = document.createElement("div");
-    nm.className = "fc-name"; nm.textContent = init.n;
-    card.appendChild(nm);
-
     // Arc + bubble for initiative (icon inside ring)
     const initArcWrap = document.createElement("div");
     initArcWrap.className = "fn-arc-wrap";
@@ -1279,6 +1284,13 @@ function renderInitList(inits, label, fi){
     bubbleI.style.top = "0px";
     initArcWrap.appendChild(bubbleI);
     card.appendChild(initArcWrap);
+
+    // Initiative name below arc
+    const nm = document.createElement("div");
+    nm.className = "fc-name";
+    nm.style.cssText = "font-weight:500;margin-top:4px";
+    nm.textContent = init.n;
+    card.appendChild(nm);
 
     // Animate after insert
     setTimeout(()=>{
