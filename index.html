@@ -513,14 +513,6 @@ body.edit-mode .pct-edit-row{display:flex}
       font-weight: 100 900;
       src: url('chrome-extension://lknmjhcajhfbbglglccadlfdjbaiifig/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
     }
-  </style><style type="text/css">
-    @font-face {
-      font-family: 'Work Sans';
-      font-style: normal;
-      font-display: swap;
-      font-weight: 100 900;
-      src: url('chrome-extension://lknmjhcajhfbbglglccadlfdjbaiifig/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
-    }
   </style></head>
 <body class="">
 <div class="tt" id="tt"></div>
@@ -537,7 +529,7 @@ body.edit-mode .pct-edit-row{display:flex}
     </div>
     <div style="display:flex;align-items:center;gap:10px">
       <!-- Save status -->
-      <div class="save-status show saving" id="save-status"><i class="ti ti-loader spin"></i> Saving to GitHub…</div>
+      <div class="save-status show" id="save-status"></div>
       <!-- Edit mode banner -->
       <div class="edit-mode-banner show" id="edit-banner"><i class="ti ti-pencil"></i> Editing</div>
       <!-- Search -->
@@ -562,7 +554,7 @@ body.edit-mode .pct-edit-row{display:flex}
         </div>
       </div>
       <!-- Edit / Save -->
-      <div class="tb-btn save-mode" id="edit-btn" onclick="toggleEditMode()" title="Save to GitHub" style="width:42px;height:42px;border:none;background:transparent">
+      <div class="tb-btn" id="edit-btn" onclick="toggleEditMode()" title="Edit mode" style="width:42px;height:42px;border:none;background:transparent">
         <img id="edit-icon-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAYNklEQVR42u2ce4xc133fP79z7p2Z3dnlkruU+BQpkqJFyRYl006cSrEt1UmUuFJdu0CTOGniFCkawEgaoAiS1kCRJqmDNGgDp06BoEmQB/KwDcR1UteyHEWOHMWWbNmUTJkUbZEUSYlvct87j3vOr3+cc+69sw+Sokg5CfYCg3ns7My9v/N7fH/f3/eMeO+V1eOaD7Nqgms/ZNWAr+3QVQOuhvCqAVcNuGrA1WPVgP+YDajx9g8NnlztOWc36iQ8GoCmmIEzU3T5v8U36ApnrhqQq7weXiUycL6vuwd69VgxGDGc689xoT/PXNGj5wtQxWIwGOYXeiws9Ol0+vR6Bf3C472i0YoiICKICMYIJj5eemNFy/q4YFfneYqIcLYzzf945a+Z8gsIclkjZjfEeMbyjbkz/OnUAYqmYc51sQi5GIYlp20bjDwzxTu33MW2bRvo9130smA8RYI9pPKGYEwqYxrBmmA8YypDlgaNzZZNltXk+XKZc1dElMPTp/n8pUO8few23tq+Be8VK3LjDehVscby6Zf287uz+/meLXfyxfMvcnT2HFYM1hoysbTbQ8xOnWDn8Bi337YJ9T3yLEPEgEh5kVoLX1XFa/W4Xyh9rby18lopDW8z4RTTOJRdzXVkxuLVL2vElFoyhC9fOMJI3uSZueN8R3sbIoJHMcv833UzoKpijeGP9j/OL37zs7znu+7jiZcP8pkTB2irjWuv4JV1a8fonD7O8fw0M1MLTM5Ok9sMMabysppHGWuxRjDGIDGUrQkGltJD6/fhvb1en188+Gkmtk4wRpN/vfbN7B6awHlf5bky7xkaYjg0fZq/mHqe973hrRzrXuLxqcM8MPaGgUW67gZ03pNZy2PHvs6vPPEJpm5qcnjyNF8/c4K2zxABq2DEhpzkPP1+H9THwqF474OBU/AlgwAiBWKCYQQFMRgjNLMG6n0oLhKMW7gC7z0YYdjkdI6e5li2wLrWML8+N8kv3/IgG5qjpRFTwnilN8WTnZd4bPIFtm1Yz3Qxz9vX7uLpzsucnJ5hb7aJvUOb0EXpNrueVet/f+VzHD9/Ft8eZ7IzB86jqrWQDIFC9CzvQ9FwzgVDacxlgMYCEZ6keA6nbw10Ox1+/9FPMNuZZ6w9QntomKZtcMtNG3nDrbtotlsUrmDq0iQnzs2xOR9hbO0afv3lz/Mr23+AhrFoTDuZMXz8xS/xqwc+xcbRtWwfv4mnZ6f46ukjXLg4xdnZSX54133cfcd7wkLXvPc1G1BRjDF0+j2eP30cV/SxMWFrwAGxIAii1eqpKs57nPd451ExIBE2SPU/JoW101BF8Aw3mzzz4iE+9OQf0W61yMVgVehOzbBOh/nIv/kQ971lH9qPcEmFhX4fnZzikHr+Z/YFfm7bAzj1GDF4VX5q1/3sa27mI09/iseOfIXvets+Dp56ic0zTX77n/wY9269A69LQ/+1e2D0aae+8iRANDqNic/RaMTqBDQaz3mH8YMpOuU773zIe0YIKVRRr/RzYd1b9nDzxDoaxpKroeh2OfQ3z9CTIhqmiOcRqs9ct0s2LTwuB9nSGOP9G/dReIcVQ6vR5B077+IdO+/iX/75h3nhwjm2D03wp/d/kPUjYysWn+uGA6WMtfBMVUNeiuZLoZluIXxidfUaDelx6d77YOD094gPVYPRjRicFfoG+gZcbnBDOaO3bKTVbOKdr52XkNZtcmEBN9vhT858mScuHYmVOXx2t+gD8DP7Hma+2+H7b93H+pExeq5YEf5c0YBOw0U4vTwcTWBTRGK10mS6MmRFJXYgEt+XcmAMZa/lxdQfh/eFW3oecmtYDE9MB6J4AV/DlBILRUqjIsL0/Dz92Xl+8+TfcHT+IsYEmJIbi6Lcs2Eno6bF7uENIUWJXHsnkhmLNYbM2GVx0HJNZInNYoWVWlegIjivpTGcczgXjOOcwzuH+tDSpde9D2GbPNX7quXz8YGXkHedKl59+d0ROcXHWqaBubkFzkyd5/dOPhUWWWPlVxhrtfmte36c7163G5TLGjC7TFrDo/zluWc50D3N7tZNvHf8bnKx6AqIvjxJABVI3oMp2y1xGoqCkdJIzjmcMWV18+qwWr3HGAlVOYaicy4sjwhOPVZNBboleGNYTA05UBWVFCOKeuj5AjPv+eqZI8zv6DGcN0InEhf+u7fcUUUOr9oDg+v/rxcf4yOvPMbW0Qkem3uBXz32mYESvth4XuNJCjh8GcqlN0QXFZEqPBMOdD56VwzrmA+Tx5U5MHovpQdS5jitdy1xWmtJCznItHhVXFEwOz9Hx/VrrhOOwju8+ldPZ4WYN1ycn+HjB79A1nEcm36FrO/57Mn9HJs6W5b+y5WUGiKORYUQmhIrabwU9eGifYQ16kOYab2IuConpgKDVjnSxYXztZbSqw/eu4iaSrmRMr8GxLD4sGUBfLV0VoxfK8Lp46eYmxIuTk/h1DNzbgaz9zJ0U81mUr5mYvKuVt7HXJQ6EOdcRW2ZYLyyjYugUFRQDQXB+yqsUoErNBULLeGRJmBedjzBqCnXRXD1mvjKJR4oIjjvGBsa4QN7HuDU1w/z3FcP8OzT+3nv+rvZtvbmZXvJdOIpJNVrrTrXCkkKxeiJZZHQqqXzCR/Gm/c+eFTtfVJjWioWh9jyDXqij2mDWrOoRvDy2infbPnWzODV86F3vZ+9G7bzxNGv8+atu/nBvfdHaLB8DiQxFhG8SnRNkVAEwmdXF5fyZvLCit/TskVUTGRCQI0vc5yqsuB6ZL6BRqoLK/RcUWNofOXpGtpDxeMTvJKyMF9fAyYAqqo8/Kb7ePhN91Up9gpVqcp/NRSYqCYEJNAoYkxV7WN+k5h/KQt5DFn1oAY0MDTz3S67Jzbx7u1v5vmFUzTyHBWlV/R52447uWvHbrpFjyGykooiRkg6tRLM45fCj+thwLIaOVfCFmNWRoJa4+YEiZUyVeUAQURCITEiWGs4de4M3W4Xm0l19qpV4SkpfinD28TQy5zym/vez4IUOJQCT7ffY6I1QkMNl6anGcozjDElDtQBC8XzfY0zgisC6QSi7UrGk1oOjAk6gRdfAuqqqqgxdLs91m7fxOPH9nPom4dokGEx5DbDGos1lsyaMBYwgYhNTLREgqFQz6XpKdxsF5nr01pQxn2TYr7H5PQMxhrUK7MLCzSzPORZ6jOOEPdlPYFrMuZ1IxPK5K51SBXhAkqhIY+JQLfTZe36Cdw9m/itpz/J95y+h7Uja0CFRhaMmBlLZi2NLCfPMjKbkec5ubVkWUae5Vgb3hOMnGGtCQttDEONJv/vK5/nbLPDxtGNXLh4kdzaWlsnMbyXJ0pfPwPW27QIFxDKtsppKANE8CyR/jp34SKb7thCsfUm/s/LR9F+qLay4BEPOI8UYUHEKxYh0wCMjYJVQ0YYEVjCY4uhYTNaeZNur8uhxhS3PbCPw2dOIkZwsbAV3mNEw4LJaxu6ZtfscsvgQFeDMQNAW2qFREO7hcAr584x0h5m+M4tiAiZGEyEHMmbVcBEsOsj4nAovTQg8RE+qaIuPPfOYfMR1q/bzpHzp+i7QG+VCCLyjqKLYMyNKCJLjFdWST/wbaqD40Pv/VKSIfaveC1p+Jn5BSZnZtMbKuNFzCMi5NhI5vsQojFxiTGYCLbT2NPEEBbvOH/yeATkBocPUEglpJISiPsbA2OWFou4dLPfhOGdYOxA+1EyL1r1p6GSxtD1CkZwWrHEgYQWMpuVn6Uxn5bjzJjsk3G9KiZO2dW5sIyxcgtS5mBBIo4MRjIkQqI+IdCB6FjiLKkXFrOia2ZX7Xnewzf+C+pPIQwhe34ZzdeU7q+1Kb6pkwvq44yjkhdkxlKI0kstVuIITaT9rQl9bPhDSRKQGBpMLEg1kjYa2dTQcQLmPvKJ6VpMDasm1LCkCouJhqvPY67FgOoRY+lfOkH3ix+hvftu+ie/iFn7XrJtD0RwGuateK0xzlXbpUYqMtUYzs9NM7zgGJYs8HfRiEUJNAJNpabO8MTXNLRhEi+e6MXqPSqCtbak8Y2EcG/lDdYPjwRPrXvgALGRcmDEocUcevrPkawFN78HJF82SWZXE7qqHjt6M7P2XqYeeYTG9rsYH78rhoCpWrO4yi7STD6Fmg9nZ23GzNwMP9a+k5+990HWNNuBiVZfEqFOPYVzkSBw9J0Lz9H4vKCvnsIV9OLjvivo+YI+np4rKFTp+T6dfo++dzw39TJPnj3BpvXrA+uslPlal1cI4L7wE1j7Err2DXD+aeSN/+0aDRhDwuRNbv7RTzJ/5Eu0tt6NHVkXDSZl0Si7Dx9CvmROBDKxXOrO8e7hHfzO932QhX6Hbq9XhlMKt/Jx7FxSQ1hJNwYCcOD/qly9GDXArz31SX7p+GPcOnFzOSDygFUtPRM8Ihm9iyeY2v9p1u7cROaO4Gefhl3/CRlaF/Piqx1rpsrYaDGy5/6qUS/nH/XOI7ZgXgm8ZwxJFN8reN+2e+h2OpyfvUTD5mXIlkkutYW14dOS2YtSin6S8Zb4Rq1g5Dbj5978MI9cPMRhN8O4aeLieRdhUl12TKqebGSc6c525p86yOjYi+S3vJ2RxkhVVK4ZxqiPSgCzZKXLXIWW7VFo1oM3OVVyLENq6Rd9MmMrb4t4T2JnOaCGShVIaoDTVBZbltiQyvSCUPiCwjneNr6DAxefQZutwDkG1Flr7mK0Ndts/fGPc+HRX8I1W4y+6z8jNke9qwrLteFACfDlVTTaPrK+aiQugFaGkGCFoHcx0ZsrBqeqjoP965UIqERjBRot5WEfuhUxsSJLnDoukr+JQdXT3PwmNn/g44OfKeYGtnK+1CKUJ1exM/FxFA2VxolcXLs9HGUcAq+mL12mc9CaBKTb7VL0+wM5Ni1oaiuVehpKHyfB20q2RpY13vU1oCYavd58SEzQOqBWSNdoM8uZc+c4cuQo7eHhco6b8lddRJn0NFIj9MpCE+FKGgOkhcjynFazWeVUBecV51PfDm5A0rQYB74uZIJWoaCDhBE1llrT7JWKm3POMdpuMzszw8zs7OBwZRFFaERK1me5/Kf1/4ut3cYNG6EZZizEDqg+uA9jBf/3g40JINdXl+RjetZKqpa8KLmh95680eDWW7czwG1KrZuizmbX+/702RXhuni2kwRMWlNGaByZeu+ioPPKOujXZMCU11bmomO+i+qBUm4R8ZKUXGGtBahVabyncHrlCcFKuIaKxC3nLzVBeh0jmnhejjAjMeXM+gaSCWncuLKba8VqlIbSmkqhYqiDTMJUn6WKsZahodYVxxLV1+tV0Mfhu3q9HkXhSvo+5UB1UTqCp1BzYzwwzUGOdy5yrpjlLe1tl/2ilNcSytCkScFjIo4rhzvx3hjLzMws/V6fRiMvK/Vyvb1ewSGlJh5Kj4uiqNiXpGpQpYhDe7EB5twQD0yalD889iTHzBQf3fmDNLOMleYwvt6Q1yRuquATQeJ8yZSoV9RAv9/jyNEjGGNL25UKrwH4V0GcNONN6YEa9VWp9IVNmzayZnSUIo46BQkqh2g0caBGr78HOvUYY1jodnlh5hXM2hbPz7zMW9bdSl8LcrFLXCPhwAQ5wnOJEgyPmkVwIYqExsbGaA21cIUr4QtXIxpJ761pqetdiIihkeelCowaE520iYIO7Eu5bgbMooF+58TfctYucO/oNn77zJN8dM1WGpH81OWqcCRNg/PIoilYCjtZolVp5A3Ia9UFXdQq6vIxXIMtsqR6Vz11qbISg0vpJfGCshymrQjd+uOrMqAXeKm4yCMXv8Gj/W+ya2IDtzTX4NZ4/vvZv+ah8bvY09xApkt7Ya9gS/mBDlx3KiplmxbnExJbORE7sENpuSurXq9I3ApQL7KsBg9PWkNqI9eQUgR0uUUO2zXSS9bIivLeAQM69WTG8lcnn+U/HPwY68fG2Dy0lotz0zzROcSu4Zs5PP8K/+7oV3h4fC//cc9DOO/Krw4gOpCrpSZPq+F65VhS6z3DBYyOjiJLVF31SqEDpPAAfRXDM1X/qlcW5ufncb5XFi6pg2gNudB5qbExihXLZ04/x6enD9DKG3zv2B08OP7GFY2YVXAlJO7vGN/Bz068kz9+7nE+NfVVbt+zi4n143zm2S/TnoZ/ddu9PDRxVyWfjV7jvCuHQZpERHGYnTyyLEDRM40xnDt/nhMnT9JqtQYGUVVeqmn76jMY1WofW62QlH2tV8bGxhgbG6UoiiUK1USYuRrdnxnLl898i59//mP88z3fyR0jW/iN459jRBvcN7F7WVFVVtfCAIwPr+En9z3IB/a+i5/85G/w6PkXaY0Ms13X8rF/8e/ZsX7TIuWmlkWk7kVJxibEKZyh7D+r7WuekXabmZlppmemq60NEXsObLYxYXMN1DfgVDjVWFPqeUQEMYZWq0n1szgyQN5SF3jWQvj/vvAUM1PTHJs8zUKvQ6/T5ZGT+7lvYvciachKOVCVwhU0spz/+r0/wTOPfJjJuRk+vO997Fi/iU7Ro2GyJUrVJKuVGHI+Nu02kn2eQRlU6ksbzQY7duwY2EizFFIvh/pWyI21rwmepWVtCufma6I7rfO4wYHsMMdeOMJI1mJkuMWJ8+d4cOdtK6L8bDmYkNsMp54tY+u5fd1mviWXeOfWO0PFtNmyuaCI6tLkBUXsQb3WWCoRrDEDIiRVDRCGFarsYoJVB4tMyeDUVVe1Sl6ljBR+gYFOmkGp9dtePT+y9wH+7GuP86WvHWB4aIh9N+/iR25/58Co9SqBdAi7t2+4g7HJ46xrjeJZLpFWXy41bYzWJmyJzlIjTHcWauFdBVC5K1eps3JLuMUBwqaG7SoPqVSnyThpKnhuYYZG3sC5YgBH1gvh+tG1/NW//TX+4uAX6XvPP7v9O5lor1myxeuKBrSxZ/3pvT9QgeRKilVxflqFsJhqr27g3IJYUjXoWXwj4/Mnn+e+DbtprhmKeVMGwkOWRMpShlpq2VeWpIa6LC7cZyJ87fgLPFecpZ236Ha7iTDCi5SNgcSwbzeH+OF7/ukAWSzXul9YRMiyrKb6XL4yTgyPgipFt4fvdFgo+kFp6gMN4iO+ejw/y5b9n+Mdm+9kOFbeILCsaCdHtbmn3E+C4nwYcRblPpAgj0yK+gJPURuTFrFoXfIdnm9OcdL26HV7SMR5XS3Yno9xS3tdKDZx5ZKkOJEp8mr3iSwvnmRgc3O6Oe/puC5v3HAr+zbcyuHTx3FTHTrtGczwcAylCBn6npMyzx+2jvL4qVfIC0+RcGKkqwsBZ8Cb2q6lOGtWCYpSV5uLqImklATRkUNL2l4k7h/JDL2OZ3J6NkAvHyBUMTXJD919P+3WEAudbpDKxfJuxV4VIy1X8/N3pQGjpyRNs4tbVQtX0G4M8bmDT/MLn/goXQvH2w4/PoYMt2rJSvHekTWC1i+5dJjRhpyYNhPWR3uVtLiix6q9w1LyilrfDpAWLi1Q3BDuNe7Dm5/l3ev38AcPfjC0kgJ5lmGtjTKTavP39TFgbfOLcwX9fkGv6NPvFxSuoF8UDOUtHv3GU/z+3/0lhxfOc2k0Q8faSCOP0zytxJgpZLzW60ZlMR/EPSXeTFK2GL7lAB+ftHVUia3Op1U9tijkxjDebPPQ9nv4mbc+xNjIKNZamo0mjTyvjBhx53UxYLXNNKxe4Ry9fp9ut0un16Pb7TDf6TA9GzZZHzj+LT777BfYf+EYF4aU+ayGL7xP8q2QH71HoihIoteID9XcxkmxjVsaMonSXwy5sWRionrVkklQszZNRp5lNLOchs3DfR7uR5pDjA2PsvOmLdyxeQfD7TYjw22Gms2ggM3yoHIVE4C5GK5gv6s0YKnWjfoVF4zY7/fpFX26vR6dboep2RnOX7rE1Ow0Zy+e5+zkeWZ78yy4HgpkNmitc5vRsHm54rnNaGR5MISx5PGiG1keZL3xb9V9I7zXWvI8SX2DIa21pc466amNCT/BkrSF3nsK78htFjZRimBN9LqkEpMre9+rM2BtyFNuR43VKjXnzrsS0jgf+b0awUlJmJoS1NbJ0AGiYIAYqDQ6g++pIeuBAdRgayA1RLF4XCpQelr12tX/wo9c02+o6qCost7A13m4tLWq6n0XE/DLnOcSUlUGNEP1i5MVBEVSzo2XDgdk0ehP6pziNaj05br8CK3Weg9dxtKLh0OLF3hFbfJS9lQuM0+SAZ3LQHNyhe+59kO+7b/iewMu6vU8vv0/f/cP2Hh/PwzIqgFXDbh6rBpw1YCrBlw14OqxasBvw/H/Aao8FrsVVyM/AAAAAElFTkSuQmCC" style="width:38px;height:38px;object-fit:contain">
       </div>
       <!-- GitHub Setup -->
@@ -1562,13 +1554,31 @@ async function saveToGitHub() {
 
   // Serialise updated D into the page
   const dStr = "const D=" + JSON.stringify(D) + ";";
-  // Reset content to home state before serialising
+  // Reset UI to clean state before serialising
+  const _editBtn = document.getElementById("edit-btn");
+  const _editBanner = document.getElementById("edit-banner");
+  const _saveStatus = document.getElementById("save-status");
+  const _savedEditClass = _editBtn ? _editBtn.className : "";
+  const _savedEditTitle = _editBtn ? _editBtn.title : "";
+  const _savedBannerClass = _editBanner ? _editBanner.className : "";
+  const _savedStatusClass = _saveStatus ? _saveStatus.className : "";
+  const _savedStatusHTML = _saveStatus ? _saveStatus.innerHTML : "";
+  if(_editBtn){ _editBtn.className = "tb-btn"; _editBtn.title = "Edit mode"; }
+  if(_editBanner) _editBanner.className = "edit-mode-banner";
+  if(_saveStatus){ _saveStatus.className = "save-status"; _saveStatus.innerHTML = ""; }
   const _contentEl = document.getElementById("content");
   const _savedHTML = _contentEl.innerHTML;
   _contentEl.innerHTML = '<div class="home-msg" id="home-msg"><div class="home-grid" id="home-grid"></div></div>';
   let html = document.documentElement.outerHTML;
   html = html.replace(/const D=\[[\s\S]*?\];/, dStr);
-  _contentEl.innerHTML = _savedHTML; // restore immediately
+  // Restore current view properly
+  // Restore UI state
+  if(_editBtn){ _editBtn.className = _savedEditClass; _editBtn.title = _savedEditTitle; }
+  if(_editBanner) _editBanner.className = _savedBannerClass;
+  if(_saveStatus){ _saveStatus.className = _savedStatusClass; _saveStatus.innerHTML = _savedStatusHTML; }
+  _contentEl.innerHTML = _savedHTML;
+  // Re-attach home grid if on home page
+  if(activeFnIdx === null) { buildHomeGrid(); }
 
   const apiBase = "https://api.github.com/repos/" + cfg.user + "/" + cfg.repo + "/contents/" + cfg.file;
   const headers = {
@@ -1586,6 +1596,15 @@ async function saveToGitHub() {
     const putResp = await fetch(apiBase, { method:"PUT", headers, body:JSON.stringify(body) });
     if (putResp.ok) {
       clearUnsaved();
+      // Reset edit mode UI to clean state
+      editMode = false;
+      document.body.classList.remove("edit-mode");
+      const editBtn = document.getElementById("edit-btn");
+      const editImg = document.getElementById("edit-icon-img");
+      if(editBtn){ editBtn.classList.remove("save-mode"); editBtn.title="Edit mode"; }
+      if(editImg) editImg.src = "data:image/png;base64," + ICON_B64["ui_edit"];
+      document.getElementById("edit-banner")?.classList.remove("show");
+      document.getElementById("add-btn") && (document.getElementById("add-btn").style.display="none");
       setSaveStatus("saved", "Saved to GitHub ✓");
       setTimeout(clearSaveStatus, 3000);
     } else {
@@ -1755,4 +1774,4 @@ function buildHomeGrid(){
 </div>
 
 
-</div><tldx-lmi-shadow-root data-wxt-shadow-root=""></tldx-lmi-shadow-root><div id="tldx-toast-container"></div><tldx-lmi-shadow-root data-wxt-shadow-root=""></tldx-lmi-shadow-root><div id="tldx-toast-container"></div></body></html>
+</div><tldx-lmi-shadow-root data-wxt-shadow-root=""></tldx-lmi-shadow-root><div id="tldx-toast-container"></div></body></html>
